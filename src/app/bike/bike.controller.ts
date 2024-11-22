@@ -30,6 +30,8 @@ class BikeController {
             res.status(500).json(errorResponse('An error occurred while creating the bike', error))
         }
     }
+
+
 }
 
 export default new BikeController()

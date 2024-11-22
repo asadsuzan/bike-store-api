@@ -26,5 +26,15 @@ class BikeService {
             return yield bike.save();
         });
     }
+    /**
+   * Get All Bikes
+   * @returns all bike documents
+   */
+    getBikes() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const bikes = yield bike_model_1.default.find({});
+            return bikes;
+        });
+    }
 }
 exports.default = new BikeService();

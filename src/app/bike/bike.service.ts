@@ -14,6 +14,17 @@ class BikeService {
         return await bike.save()
 
     }
+
+
+    /**
+   * Get All Bikes 
+   * @returns all bike documents
+   */
+
+    async getBikes() {
+        const bikes = await BikeModel.find({})
+        return bikes
+    }
 }
 
 export default new BikeService()
