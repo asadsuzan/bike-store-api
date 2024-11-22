@@ -21,8 +21,8 @@ class BikeService {
    * @returns all bike documents
    */
 
-    async getBikes() {
-        const bikes = await BikeModel.find({})
+    async getBikes(query: Record<string, unknown>): Promise<IBikeDocument[]> {
+        const bikes = await BikeModel.find(query)
         return bikes
     }
 }

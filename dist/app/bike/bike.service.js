@@ -30,9 +30,9 @@ class BikeService {
    * Get All Bikes
    * @returns all bike documents
    */
-    getBikes() {
+    getBikes(query) {
         return __awaiter(this, void 0, void 0, function* () {
-            const bikes = yield bike_model_1.default.find({});
+            const bikes = yield bike_model_1.default.find(query);
             return bikes;
         });
     }

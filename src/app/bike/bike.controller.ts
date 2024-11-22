@@ -39,11 +39,21 @@ class BikeController {
 
     async getBikes(req: Request, res: Response) {
         try {
-            const bikes = await BikeService.getBikes()
-            if (!bikes) {
-                res.status(404).json(errorResponse('Failed to retrieves bikes', "No Bikes Found"))
-                return;
-            }
+            const { searchTerm } = req.query
+
+
+            // Build the query dynamically
+            const query = searchTerm
+                ? {
+                    $or: [
+                        { name: { $regex: searchTerm, $options: 'i' } },
+                        { brand: { $regex: searchTerm, $options: 'i' } },
+                        { category: { $regex: searchTerm, $options: 'i' } },
+                    ],
+                }
+                : {};
+            const bikes = await BikeService.getBikes(query)
+
             res.status(200).json(successResponse('Bikes retrieved successfully', bikes))
         } catch (error) {
 

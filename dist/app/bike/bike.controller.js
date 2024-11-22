@@ -47,11 +47,18 @@ class BikeController {
     getBikes(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const bikes = yield bike_service_1.default.getBikes();
-                if (!bikes) {
-                    res.status(404).json((0, errorHandler_1.errorResponse)('Failed to retrieves bikes', "No Bikes Found"));
-                    return;
-                }
+                const { searchTerm } = req.query;
+                // Build the query dynamically
+                const query = searchTerm
+                    ? {
+                        $or: [
+                            { name: { $regex: searchTerm, $options: 'i' } },
+                            { brand: { $regex: searchTerm, $options: 'i' } },
+                            { category: { $regex: searchTerm, $options: 'i' } },
+                        ],
+                    }
+                    : {};
+                const bikes = yield bike_service_1.default.getBikes(query);
                 res.status(200).json((0, successHandler_1.successResponse)('Bikes retrieved successfully', bikes));
             }
             catch (error) {
