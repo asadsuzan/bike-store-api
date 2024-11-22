@@ -22,6 +22,18 @@ app.use('/api', bike_route_1.default);
 app.get('/health', (req, res) => {
     res.status(200).json({ status: 'success', message: 'API is running' });
 });
+// Handle undefined routes
+app.all('*', (req, res) => {
+    res.status(404).json({
+        message: 'Route not found',
+        success: false,
+        error: {
+            name: 'NotFoundError',
+            message: 'The requested route does not exist',
+        },
+        stack: '', // Optionally include the stack trace
+    });
+});
 // Global error handler
 app.use((err, req, res, next) => {
     console.error(`[ERROR] ${err.message}`); // Log the error message for debugging
