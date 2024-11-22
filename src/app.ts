@@ -1,7 +1,10 @@
+// Import core modules
 import express, { Application, Request, Response, NextFunction } from 'express';
 import cors from 'cors'; // Middleware for enabling CORS
 import helmet from 'helmet'; // Middleware for security headers
 
+// import routes 
+import bikeRoutes from './app/bike/bike.route'
 // Create the Express app
 const app: Application = express();
 
@@ -10,6 +13,11 @@ app.use(express.json()); // Middleware to parse incoming JSON requests
 app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded payloads
 app.use(cors()); // Enable Cross-Origin Resource Sharing
 app.use(helmet()); // Secure app by setting various HTTP headers
+
+
+// use the bike route
+app.use('/api', bikeRoutes)
+
 
 // Health check endpoint
 app.get('/health', (req: Request, res: Response) => {

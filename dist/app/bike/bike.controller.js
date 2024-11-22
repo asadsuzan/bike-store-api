@@ -35,7 +35,6 @@ class BikeController {
                 res.status(201).json((0, successHandler_1.successResponse)('Bike created successfully', bike));
             }
             catch (error) {
-                console.log(error);
                 res.status(500).json((0, errorHandler_1.errorResponse)('An error occurred while creating the bike', error));
             }
         });
