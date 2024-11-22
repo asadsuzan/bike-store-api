@@ -1,0 +1,24 @@
+{
+  "name": "bike-store-api-assingment-2",
+  "version": "1.0.0",
+  "description": "Develop an Express application with TypeScript, integrating MongoDB with Mongoose to manage a Bike Store. Ensure data integrity using Mongoose schema validation.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asadsuzan/bike-store-api.git"
+  },
+  "keywords": [
+    "express",
+    "mongoose",
+    "typescript"
+  ],
+  "author": "MD Asaduzzaman Suzan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asadsuzan/bike-store-api/issues"
+  },
+  "homepage": "https://github.com/asadsuzan/bike-store-api#readme"
+}
