@@ -1,5 +1,3 @@
-
-
 /**
  * Helper function to format the success response
  * @param message - A success message explaining what went right.
@@ -7,9 +5,9 @@
  * @returns A structured success response.
  */
 export function successResponse(message: string, data: any) {
-    return {
-        message,
-        success: true,
-        data,
-    };
+  return {
+    message,
+    success: true,
+    data,
+  };
 }

@@ -14,9 +14,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 // import bike service module
 const bike_service_1 = __importDefault(require("./bike.service"));
-// import generic error handler 
+// import generic error handler
 const errorHandler_1 = require("../utils/errorHandler");
-// import generic success handler 
+// import generic success handler
 const successHandler_1 = require("../utils/successHandler");
 class BikeController {
     /**
@@ -29,13 +29,17 @@ class BikeController {
             try {
                 const bike = yield bike_service_1.default.createBike(req.body);
                 if (!bike) {
-                    res.status(400).json((0, errorHandler_1.errorResponse)('Failed to create bike, Please check your input', "Invalid inputs"));
+                    res
+                        .status(400)
+                        .json((0, errorHandler_1.errorResponse)('Failed to create bike, Please check your input', 'Invalid inputs'));
                     return;
                 }
                 res.status(201).json((0, successHandler_1.successResponse)('Bike created successfully', bike));
             }
             catch (error) {
-                res.status(500).json((0, errorHandler_1.errorResponse)('An error occurred while creating the bike', error));
+                res
+                    .status(500)
+                    .json((0, errorHandler_1.errorResponse)('An error occurred while creating the bike', error));
             }
         });
     }
@@ -59,10 +63,16 @@ class BikeController {
                     }
                     : {};
                 const bikes = yield bike_service_1.default.getBikes(query);
-                res.status(200).json((0, successHandler_1.successResponse)('Bikes retrieved successfully', bikes));
+                res
+                    .status(200)
+                    .json((0, successHandler_1.successResponse)(searchTerm
+                    ? `Bikes retrieved successfully for searchTerm: ${searchTerm}`
+                    : "'Bikes retrieved successfully'", bikes));
             }
             catch (error) {
-                res.status(500).json((0, errorHandler_1.errorResponse)('An error occurred while retrieving bikes', error));
+                res
+                    .status(500)
+                    .json((0, errorHandler_1.errorResponse)('An error occurred while retrieving bikes', error));
             }
         });
     }

@@ -12,19 +12,19 @@ inStock (boolean): Indicates if the bike is in stock.
 
 // Enum for bike categories
 export enum BikeCategory {
-    Mountain = 'Mountain',
-    Road = 'Road',
-    Hybrid = 'Hybrid',
-    Electric = 'Electric',
+  Mountain = 'Mountain',
+  Road = 'Road',
+  Hybrid = 'Hybrid',
+  Electric = 'Electric',
 }
 
 // Interface for the Bike model
 export interface IBike {
-    name: string;
-    brand: string;
-    price: number;
-    category: BikeCategory;
-    description: string;
-    quantity: number;
-    inStock: boolean;
+  name: string;
+  brand: string;
+  price: number;
+  category: BikeCategory;
+  description: string;
+  quantity: number;
+  inStock: boolean;
 }

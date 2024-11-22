@@ -7,7 +7,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors")); // Middleware for enabling CORS
 const helmet_1 = __importDefault(require("helmet")); // Middleware for security headers
-// import routes 
+// import routes
 const bike_route_1 = __importDefault(require("./app/bike/bike.route"));
 // Create the Express app
 const app = (0, express_1.default)();

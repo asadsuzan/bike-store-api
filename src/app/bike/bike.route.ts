@@ -1,8 +1,11 @@
-// import core modules 
-import express from "express";
-const router = express.Router()
+// import core modules
+import express from 'express';
+const router = express.Router();
 // import bike controller modules
-import BikeController from "./bike.controller";
+import BikeController from './bike.controller';
+
+// import custom middlewares
+import validateQuery from '../middleware/validateQuery';
 
 /**
  * create a new bike
@@ -10,12 +13,12 @@ import BikeController from "./bike.controller";
  * @method: POST
  */
 
-router.post('/products', BikeController.createBike)
+router.post('/products', BikeController.createBike);
 
 /**
  * Get All Bikes
  * @endpoint  /api/products
  * @method: GET
  */
-router.get('/products', BikeController.getBikes)
-export default router
+router.get('/products', validateQuery, BikeController.getBikes);
+export default router;

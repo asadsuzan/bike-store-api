@@ -12,14 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// import bike model modules 
+// import bike model modules
 const bike_model_1 = __importDefault(require("./bike.model"));
 class BikeService {
     /**
-   * Create a new bike
-   * @param bikeData - Data to create a bike
-   * @returns Created bike document
-   */
+     * Create a new bike
+     * @param bikeData - Data to create a bike
+     * @returns Created bike document
+     */
     createBike(bikeData) {
         return __awaiter(this, void 0, void 0, function* () {
             const bike = new bike_model_1.default(bikeData);
@@ -27,9 +27,9 @@ class BikeService {
         });
     }
     /**
-   * Get All Bikes
-   * @returns all bike documents
-   */
+     * Get All Bikes
+     * @returns all bike documents
+     */
     getBikes(query) {
         return __awaiter(this, void 0, void 0, function* () {
             const bikes = yield bike_model_1.default.find(query);

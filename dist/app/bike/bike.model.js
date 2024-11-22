@@ -1,5 +1,5 @@
 "use strict";
-// import Bike interface modules 
+// import Bike interface modules
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -65,5 +65,5 @@ const BikeSchema = new mongoose_1.Schema({
     },
 });
 // Create the bike model
-const BikeModel = mongoose_1.default.model("Bike", BikeSchema);
+const BikeModel = mongoose_1.default.model('Bike', BikeSchema);
 exports.default = BikeModel;
