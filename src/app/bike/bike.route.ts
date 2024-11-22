@@ -12,4 +12,10 @@ import BikeController from "./bike.controller";
 
 router.post('/products', BikeController.createBike)
 
+/**
+ * Get All Bikes
+ * @endpoint  /api/products
+ * @method: GET
+ */
+router.get('/products', BikeController.getBikes)
 export default router

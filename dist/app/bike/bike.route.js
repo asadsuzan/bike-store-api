@@ -14,4 +14,10 @@ const bike_controller_1 = __importDefault(require("./bike.controller"));
  * @method: POST
  */
 router.post('/products', bike_controller_1.default.createBike);
+/**
+ * Get All Bikes
+ * @endpoint  /api/products
+ * @method: GET
+ */
+router.get('/products', bike_controller_1.default.getBikes);
 exports.default = router;

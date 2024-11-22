@@ -39,5 +39,25 @@ class BikeController {
             }
         });
     }
+    /**
+     * crate a new bike
+     * @param req - express request object
+     * @param res - express response object
+     */
+    getBikes(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const bikes = yield bike_service_1.default.getBikes();
+                if (!bikes) {
+                    res.status(404).json((0, errorHandler_1.errorResponse)('Failed to retrieves bikes', "No Bikes Found"));
+                    return;
+                }
+                res.status(200).json((0, successHandler_1.successResponse)('Bikes retrieved successfully', bikes));
+            }
+            catch (error) {
+                res.status(500).json((0, errorHandler_1.errorResponse)('An error occurred while retrieving bikes', error));
+            }
+        });
+    }
 }
 exports.default = new BikeController();

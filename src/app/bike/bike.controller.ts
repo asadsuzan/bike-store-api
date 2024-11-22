@@ -31,7 +31,25 @@ class BikeController {
         }
     }
 
+    /**
+     * crate a new bike
+     * @param req - express request object
+     * @param res - express response object
+     */
 
+    async getBikes(req: Request, res: Response) {
+        try {
+            const bikes = await BikeService.getBikes()
+            if (!bikes) {
+                res.status(404).json(errorResponse('Failed to retrieves bikes', "No Bikes Found"))
+                return;
+            }
+            res.status(200).json(successResponse('Bikes retrieved successfully', bikes))
+        } catch (error) {
+
+            res.status(500).json(errorResponse('An error occurred while retrieving bikes', error))
+        }
+    }
 }
 
 export default new BikeController()
