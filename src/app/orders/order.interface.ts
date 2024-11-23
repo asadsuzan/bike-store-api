@@ -1,5 +1,5 @@
-// import core modules 
-import { ObjectId } from "mongoose"
+// import core modules
+import { ObjectId } from 'mongoose';
 
 /*
 {
@@ -11,11 +11,10 @@ import { ObjectId } from "mongoose"
 */
 
 interface IOrder {
-    email: string;
-    product: ObjectId;
-    quantity: number;
-    totalPrice: number;
+  email: string;
+  product: ObjectId;
+  quantity: number;
+  totalPrice: number;
 }
 
-
-export default IOrder
+export default IOrder;

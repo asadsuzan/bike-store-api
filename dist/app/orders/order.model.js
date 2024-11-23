@@ -23,15 +23,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-// import core modules 
+// import core modules
 // import core modules
 const mongoose_1 = __importStar(require("mongoose"));
 const OrderSchema = new mongoose_1.Schema({
-    email: { type: String, required: [true, "email is required"] },
-    product: { type: String, required: [true, "product is required"] },
-    quantity: { type: Number, required: [true, "Quantity is required"] },
-    totalPrice: { type: Number, required: [true, 'Total price is required'] }
+    email: { type: String, required: [true, 'email is required'] },
+    product: { type: String, required: [true, 'product is required'] },
+    quantity: { type: Number, required: [true, 'Quantity is required'] },
+    totalPrice: { type: Number, required: [true, 'Total price is required'] },
 }, { timestamps: true });
 // crate the order model
-const OrderModel = mongoose_1.default.model("orders", OrderSchema);
+const OrderModel = mongoose_1.default.model('orders', OrderSchema);
 exports.default = OrderModel;
