@@ -18,6 +18,7 @@ const bike_service_1 = __importDefault(require("./bike.service"));
 const errorHandler_1 = require("../utils/errorHandler");
 // import generic success handler
 const successHandler_1 = require("../utils/successHandler");
+const mongoose_1 = require("mongoose");
 class BikeController {
     /**
      * crate a new bike
@@ -73,6 +74,32 @@ class BikeController {
                 res
                     .status(500)
                     .json((0, errorHandler_1.errorResponse)('An error occurred while retrieving bikes', error));
+            }
+        });
+    }
+    /**
+   * . Get a Specific Bike
+   * @param req - express request object
+   * @param res - express response object
+   */
+    getSpecificBike(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const { productId } = req.params;
+                // check if valid object id 
+                if (!mongoose_1.Types.ObjectId.isValid(productId)) {
+                    res.status(400).json((0, errorHandler_1.errorResponse)(`Invalid productId: ${productId}`, 'Invalid Product id'));
+                    return;
+                }
+                const bike = yield bike_service_1.default.getSpecificBike(productId);
+                if (!bike) {
+                    res.status(404).json((0, errorHandler_1.errorResponse)(`No bike found for id: ${productId}`, 'Not Found'));
+                    return;
+                }
+                res.status(200).json((0, successHandler_1.successResponse)(`Bike Retrieves successfully for id: ${productId}`, bike));
+            }
+            catch (error) {
+                res.status(500).json((0, errorHandler_1.errorResponse)(`Something went wrong when retrieving bike`, error));
             }
         });
     }

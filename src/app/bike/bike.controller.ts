@@ -8,6 +8,7 @@ import { errorResponse } from '../utils/errorHandler';
 import { successResponse } from '../utils/successHandler';
 // import core modules
 import { Request, Response } from 'express';
+import { Types } from 'mongoose';
 
 class BikeController {
   /**
@@ -53,12 +54,12 @@ class BikeController {
       // Build the query dynamically
       const query = searchTerm
         ? {
-            $or: [
-              { name: { $regex: searchTerm, $options: 'i' } },
-              { brand: { $regex: searchTerm, $options: 'i' } },
-              { category: { $regex: searchTerm, $options: 'i' } },
-            ],
-          }
+          $or: [
+            { name: { $regex: searchTerm, $options: 'i' } },
+            { brand: { $regex: searchTerm, $options: 'i' } },
+            { category: { $regex: searchTerm, $options: 'i' } },
+          ],
+        }
         : {};
       const bikes = await BikeService.getBikes(query);
 
@@ -78,6 +79,34 @@ class BikeController {
         .json(errorResponse('An error occurred while retrieving bikes', error));
     }
   }
+
+  /**
+ * . Get a Specific Bike
+ * @param req - express request object
+ * @param res - express response object
+ */
+
+  async getSpecificBike(req: Request, res: Response) {
+    try {
+      const { productId } = req.params
+      // check if valid object id 
+      if (!Types.ObjectId.isValid(productId)) {
+        res.status(400).json(errorResponse(`Invalid productId: ${productId}`, 'Invalid Product id'))
+        return;
+      }
+      const bike = await BikeService.getSpecificBike(productId)
+      if (!bike) {
+        res.status(404).json(errorResponse(`No bike found for id: ${productId}`, 'Not Found'))
+        return;
+      }
+
+      res.status(200).json(successResponse(`Bike Retrieves successfully for id: ${productId}`, bike))
+    } catch (error) {
+      res.status(500).json(errorResponse(`Something went wrong when retrieving bike`, error))
+    }
+  }
+
+
 }
 
 export default new BikeController();

@@ -22,4 +22,10 @@ router.post('/products', bike_controller_1.default.createBike);
  * @method: GET
  */
 router.get('/products', validateQuery_1.default, bike_controller_1.default.getBikes);
+/**
+ * Get All Bikes
+ * @endpoint  /api/products
+ * @method: GET
+ */
+router.get('/products/:productId', bike_controller_1.default.getSpecificBike);
 exports.default = router;
