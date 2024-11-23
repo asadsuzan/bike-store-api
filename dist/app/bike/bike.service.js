@@ -47,5 +47,17 @@ class BikeService {
             return bike;
         });
     }
+    /**
+    * Update a Bike
+    * @param id (ObjectId) - Data to create a bike
+    * @param bikeData  - Data to update a bike
+    * @returns updated bike document
+    */
+    updateABike(id, bikeData) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const bike = yield bike_model_1.default.findByIdAndUpdate(id, bikeData);
+            return bike;
+        });
+    }
 }
 exports.default = new BikeService();

@@ -33,6 +33,16 @@ class BikeService {
     const bike = await BikeModel.findById(id)
     return bike
   }
+  /**
+  * Update a Bike
+  * @param id (ObjectId) - Data to create a bike
+  * @param bikeData  - Data to update a bike
+  * @returns updated bike document
+  */
+  async updateABike(id: string, bikeData: IBikeDocument): Promise<IBikeDocument | null> {
+    const bike = await BikeModel.findByIdAndUpdate(id, bikeData)
+    return bike
+  }
 }
 
 export default new BikeService();
