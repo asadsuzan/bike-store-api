@@ -36,5 +36,16 @@ class BikeService {
             return bikes;
         });
     }
+    /**
+     * Get a Specific Bike
+     * @param id (ObjectId) - Data to create a bike
+     * @returns matched bike document
+     */
+    getSpecificBike(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const bike = yield bike_model_1.default.findById(id);
+            return bike;
+        });
+    }
 }
 exports.default = new BikeService();

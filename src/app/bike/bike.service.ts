@@ -22,6 +22,17 @@ class BikeService {
     const bikes = await BikeModel.find(query);
     return bikes;
   }
+
+  /**
+   * Get a Specific Bike
+   * @param id (ObjectId) - Data to create a bike
+   * @returns matched bike document
+   */
+
+  async getSpecificBike(id: string): Promise<IBikeDocument | null> {
+    const bike = await BikeModel.findById(id)
+    return bike
+  }
 }
 
 export default new BikeService();
