@@ -30,18 +30,23 @@ class BikeService {
    */
 
   async getSpecificBike(id: string): Promise<IBikeDocument | null> {
-    const bike = await BikeModel.findById(id)
-    return bike
+    const bike = await BikeModel.findById(id);
+    return bike;
   }
   /**
-  * Update a Bike
-  * @param id (ObjectId) - Data to create a bike
-  * @param bikeData  - Data to update a bike
-  * @returns updated bike document
-  */
-  async updateABike(id: string, bikeData: IBikeDocument): Promise<IBikeDocument | null> {
-    const bike = await BikeModel.findByIdAndUpdate(id, bikeData)
-    return bike
+   * Update a Bike
+   * @param id (ObjectId) - Data to create a bike
+   * @param bikeData  - Data to update a bike
+   * @returns updated bike document
+   */
+  async updateABike(id: string, bikeData: IBikeDocument) {
+    const bike = await BikeModel.findByIdAndUpdate(id, bikeData, {
+      new: true,
+      runValidators: true,
+    });
+    console.log(bike);
+
+    return bike;
   }
 }
 

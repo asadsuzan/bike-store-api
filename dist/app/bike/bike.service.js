@@ -48,14 +48,18 @@ class BikeService {
         });
     }
     /**
-    * Update a Bike
-    * @param id (ObjectId) - Data to create a bike
-    * @param bikeData  - Data to update a bike
-    * @returns updated bike document
-    */
+     * Update a Bike
+     * @param id (ObjectId) - Data to create a bike
+     * @param bikeData  - Data to update a bike
+     * @returns updated bike document
+     */
     updateABike(id, bikeData) {
         return __awaiter(this, void 0, void 0, function* () {
-            const bike = yield bike_model_1.default.findByIdAndUpdate(id, bikeData);
+            const bike = yield bike_model_1.default.findByIdAndUpdate(id, bikeData, {
+                new: true,
+                runValidators: true,
+            });
+            console.log(bike);
             return bike;
         });
     }

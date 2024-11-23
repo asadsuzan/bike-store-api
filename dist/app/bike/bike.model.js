@@ -63,7 +63,7 @@ const BikeSchema = new mongoose_1.Schema({
         type: Boolean,
         required: true,
     },
-});
+}, { timestamps: true });
 // Create the bike model
 const BikeModel = mongoose_1.default.model('Bike', BikeSchema);
 exports.default = BikeModel;

@@ -54,12 +54,12 @@ class BikeController {
       // Build the query dynamically
       const query = searchTerm
         ? {
-          $or: [
-            { name: { $regex: searchTerm, $options: 'i' } },
-            { brand: { $regex: searchTerm, $options: 'i' } },
-            { category: { $regex: searchTerm, $options: 'i' } },
-          ],
-        }
+            $or: [
+              { name: { $regex: searchTerm, $options: 'i' } },
+              { brand: { $regex: searchTerm, $options: 'i' } },
+              { category: { $regex: searchTerm, $options: 'i' } },
+            ],
+          }
         : {};
       const bikes = await BikeService.getBikes(query);
 
@@ -81,32 +81,71 @@ class BikeController {
   }
 
   /**
- * . Get a Specific Bike
- * @param req - express request object
- * @param res - express response object
- */
+   * . Get a Specific Bike
+   * @param req - express request object
+   * @param res - express response object
+   */
 
   async getSpecificBike(req: Request, res: Response) {
     try {
-      const { productId } = req.params
-      // check if valid object id 
+      const { productId } = req.params;
+      // check if valid object id
       if (!Types.ObjectId.isValid(productId)) {
-        res.status(400).json(errorResponse(`Invalid productId: ${productId}`, 'Invalid Product id'))
+        res
+          .status(400)
+          .json(
+            errorResponse(
+              `Invalid productId: ${productId}`,
+              'Invalid Product id',
+            ),
+          );
         return;
       }
-      const bike = await BikeService.getSpecificBike(productId)
+      const bike = await BikeService.getSpecificBike(productId);
       if (!bike) {
-        res.status(404).json(errorResponse(`No bike found for id: ${productId}`, 'Not Found'))
+        res
+          .status(404)
+          .json(
+            errorResponse(`No bike found for id: ${productId}`, 'Not Found'),
+          );
         return;
       }
 
-      res.status(200).json(successResponse(`Bike Retrieves successfully for id: ${productId}`, bike))
+      res
+        .status(200)
+        .json(
+          successResponse(
+            `Bike Retrieves successfully for id: ${productId}`,
+            bike,
+          ),
+        );
     } catch (error) {
-      res.status(500).json(errorResponse(`Something went wrong when retrieving bike`, error))
+      res
+        .status(500)
+        .json(
+          errorResponse(`Something went wrong when retrieving bike`, error),
+        );
     }
   }
 
+  /**
+   * . Update a Bike
+   * @param req - express request object
+   * @param res - express response object
+   */
+  async updateABike(req: Request, res: Response) {
+    const { productId } = req.params;
+    const bikeData = req.body;
 
+    try {
+      const bike = await BikeService.updateABike(productId, bikeData);
+      res.status(200).json(successResponse('Bike updated successfully', bike));
+    } catch (error) {
+      res
+        .status(500)
+        .json(errorResponse('Something went wrong when updating', error));
+    }
+  }
 }
 
 export default new BikeController();

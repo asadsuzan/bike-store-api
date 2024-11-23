@@ -6,6 +6,8 @@ import BikeController from './bike.controller';
 
 // import custom middlewares
 import validateQuery from '../middleware/validateQuery';
+import validateAndPrepareUpdate from '../middleware/validateRequestBody';
+import BikeModel from './bike.model';
 
 /**
  * create a new bike
@@ -22,14 +24,22 @@ router.post('/products', BikeController.createBike);
  */
 router.get('/products', validateQuery, BikeController.getBikes);
 
-
 /**
  * Get All Bikes
- * @endpoint  /api/products
+ * @endpoint  /api/products/::productId
  * @method: GET
  */
 router.get('/products/:productId', BikeController.getSpecificBike);
 
-
+/**
+ * Update a Bike
+ * @endpoint  /api/products/:productId
+ * @method: PUT
+ */
+router.put(
+  '/products/:productId',
+  validateAndPrepareUpdate(BikeModel),
+  BikeController.updateABike,
+);
 
 export default router;

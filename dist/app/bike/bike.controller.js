@@ -78,28 +78,56 @@ class BikeController {
         });
     }
     /**
-   * . Get a Specific Bike
-   * @param req - express request object
-   * @param res - express response object
-   */
+     * . Get a Specific Bike
+     * @param req - express request object
+     * @param res - express response object
+     */
     getSpecificBike(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const { productId } = req.params;
-                // check if valid object id 
+                // check if valid object id
                 if (!mongoose_1.Types.ObjectId.isValid(productId)) {
-                    res.status(400).json((0, errorHandler_1.errorResponse)(`Invalid productId: ${productId}`, 'Invalid Product id'));
+                    res
+                        .status(400)
+                        .json((0, errorHandler_1.errorResponse)(`Invalid productId: ${productId}`, 'Invalid Product id'));
                     return;
                 }
                 const bike = yield bike_service_1.default.getSpecificBike(productId);
                 if (!bike) {
-                    res.status(404).json((0, errorHandler_1.errorResponse)(`No bike found for id: ${productId}`, 'Not Found'));
+                    res
+                        .status(404)
+                        .json((0, errorHandler_1.errorResponse)(`No bike found for id: ${productId}`, 'Not Found'));
                     return;
                 }
-                res.status(200).json((0, successHandler_1.successResponse)(`Bike Retrieves successfully for id: ${productId}`, bike));
+                res
+                    .status(200)
+                    .json((0, successHandler_1.successResponse)(`Bike Retrieves successfully for id: ${productId}`, bike));
             }
             catch (error) {
-                res.status(500).json((0, errorHandler_1.errorResponse)(`Something went wrong when retrieving bike`, error));
+                res
+                    .status(500)
+                    .json((0, errorHandler_1.errorResponse)(`Something went wrong when retrieving bike`, error));
+            }
+        });
+    }
+    /**
+     * . Update a Bike
+     * @param req - express request object
+     * @param res - express response object
+     */
+    updateABike(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { productId } = req.params;
+            const bikeData = req.body;
+            try {
+                const bike = yield bike_service_1.default.updateABike(productId, bikeData);
+                res.status(200).json((0, successHandler_1.successResponse)('Bike updated successfully', bike));
+            }
+            catch (error) {
+                res
+                    .status(500)
+                    .json((0, errorHandler_1.errorResponse)('Something went wrong when updating', error));
             }
         });
     }
