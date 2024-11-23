@@ -13,4 +13,10 @@ const router = express_1.default.Router();
  * @method: POST
  */
 router.post('/orders', order_controller_1.default.createOrder);
+/**
+ * Calculate Revenue from Orders
+ * @endpoint  /api/orders/revenue
+ * @method: GET
+ */
+router.get('/orders/revenue', order_controller_1.default.calculateRevenue);
 exports.default = router;

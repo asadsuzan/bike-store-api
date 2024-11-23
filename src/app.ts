@@ -5,7 +5,8 @@ import helmet from 'helmet'; // Middleware for security headers
 
 // import routes
 import bikeRoutes from './app/bike/bike.route';
-import orderRoutes from './app/orders/order.route'
+import orderRoutes from './app/orders/order.route';
+
 // Create the Express app
 const app: Application = express();
 

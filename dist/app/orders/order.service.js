@@ -30,7 +30,7 @@ class OrderService {
                 throw new Error('Product not found');
             }
             // check if the requested quantity is available in the bike
-            if (bike.quantity < quantity) {
+            if (bike.quantity < quantity || bike.inStock === false) {
                 throw new Error('Not enough quantity available');
             }
             // reduce the quantity of the bike
@@ -46,6 +46,22 @@ class OrderService {
             // create a new order
             const newOrder = new order_model_1.default(orderData);
             return yield newOrder.save();
+        });
+    }
+    /**
+       * Calculate Revenue
+       * @returns - The total revenue from all orders.
+       */
+    calculateRevenue() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const orders = yield order_model_1.default.aggregate([
+                { $group: { _id: null, totalRevenue: { $sum: '$totalPrice' } } }
+            ]);
+            const data = { totalRevenue: 0 };
+            if (orders.length > 0) {
+                data.totalRevenue = orders[0].totalRevenue;
+            }
+            return data;
         });
     }
 }

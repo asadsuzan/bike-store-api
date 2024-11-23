@@ -35,5 +35,21 @@ class OrderController {
             }
         });
     }
+    /**
+ * Calculate Revenue from Orders
+ * @param req - HTTP request
+ * @param res - HTTP response
+ */
+    calculateRevenue(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const data = yield order_service_1.default.calculateRevenue();
+                res.status(200).json((0, successHandler_1.successResponse)('Revenue calculated successfully', data));
+            }
+            catch (error) {
+                res.status(500).json((0, errorHandler_1.errorResponse)('An error occurred while calculating revenue', error));
+            }
+        });
+    }
 }
 exports.default = new OrderController();

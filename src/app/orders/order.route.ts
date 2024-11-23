@@ -1,6 +1,6 @@
 //import core modules
-import express from "express";
-import orderController from "./order.controller";
+import express from 'express';
+import orderController from './order.controller';
 
 const router = express.Router();
 
@@ -11,5 +11,11 @@ const router = express.Router();
  */
 
 router.post('/orders', orderController.createOrder);
+/**
+ * Calculate Revenue from Orders
+ * @endpoint  /api/orders/revenue
+ * @method: GET
+ */
+router.get('/orders/revenue', orderController.calculateRevenue);
 
 export default router;
