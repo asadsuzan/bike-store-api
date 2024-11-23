@@ -27,4 +27,5 @@ export interface IBike {
   description: string;
   quantity: number;
   inStock: boolean;
+  isDeleted: boolean;
 }

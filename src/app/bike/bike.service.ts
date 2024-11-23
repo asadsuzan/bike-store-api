@@ -44,8 +44,16 @@ class BikeService {
       new: true,
       runValidators: true,
     });
-    console.log(bike);
 
+    return bike;
+  }
+  /**
+   *  Delete a Bike
+   * @param id (ObjectId)
+   * @returns Success message confirming the bike has been deleted.
+   */
+  async deleteABike(id: string) {
+    const bike = await BikeModel.updateOne({ _id: id }, { isDeleted: true });
     return bike;
   }
 }

@@ -41,5 +41,10 @@ router.put(
   validateAndPrepareUpdate(BikeModel),
   BikeController.updateABike,
 );
-
+/**
+ * Delete a Bike
+ * @endpoint  /api/products/:productId
+ * @method: DELETE
+ */
+router.delete('/products/:productId', BikeController.deleteABike);
 export default router;

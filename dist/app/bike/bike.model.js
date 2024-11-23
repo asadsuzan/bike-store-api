@@ -63,7 +63,20 @@ const BikeSchema = new mongoose_1.Schema({
         type: Boolean,
         required: true,
     },
+    isDeleted: {
+        type: Boolean,
+        default: false,
+    },
 }, { timestamps: true });
+// HOOK FOR EXCLUDE DELETED BIKE WHEN FIND
+BikeSchema.pre('find', function (next) {
+    this.find({ isDeleted: { $ne: true } });
+    next();
+});
+BikeSchema.pre('findOne', function (next) {
+    this.find({ isDeleted: { $ne: true } });
+    next();
+});
 // Create the bike model
 const BikeModel = mongoose_1.default.model('Bike', BikeSchema);
 exports.default = BikeModel;

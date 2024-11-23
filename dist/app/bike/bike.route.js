@@ -36,4 +36,10 @@ router.get('/products/:productId', bike_controller_1.default.getSpecificBike);
  * @method: PUT
  */
 router.put('/products/:productId', (0, validateRequestBody_1.default)(bike_model_1.default), bike_controller_1.default.updateABike);
+/**
+ * Delete a Bike
+ * @endpoint  /api/products/:productId
+ * @method: DELETE
+ */
+router.delete('/products/:productId', bike_controller_1.default.deleteABike);
 exports.default = router;

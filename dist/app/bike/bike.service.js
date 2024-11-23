@@ -59,7 +59,17 @@ class BikeService {
                 new: true,
                 runValidators: true,
             });
-            console.log(bike);
+            return bike;
+        });
+    }
+    /**
+     *  Delete a Bike
+     * @param id (ObjectId)
+     * @returns Success message confirming the bike has been deleted.
+     */
+    deleteABike(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const bike = yield bike_model_1.default.updateOne({ _id: id }, { isDeleted: true });
             return bike;
         });
     }

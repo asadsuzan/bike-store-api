@@ -131,5 +131,42 @@ class BikeController {
             }
         });
     }
+    /**
+     * . Delete a Bike
+     * @param req - express request object
+     * @param res - express response object
+     */
+    deleteABike(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            const { productId } = req.params;
+            if (!mongoose_1.Types.ObjectId.isValid(productId)) {
+                res
+                    .status(400)
+                    .json((0, errorHandler_1.errorResponse)(`Invalid Object Id ${productId}`, 'Invalid ID'));
+                return;
+            }
+            try {
+                // check if bike not found
+                const bike = yield bike_service_1.default.getSpecificBike(productId);
+                if (!bike) {
+                    res
+                        .status(404)
+                        .json((0, errorHandler_1.errorResponse)(`No Bike found with id: ${productId}`, 'Not Found'));
+                    return;
+                }
+                // delete bike
+                const deleteBike = yield bike_service_1.default.deleteABike(productId);
+                if (deleteBike.acknowledged === true && deleteBike.modifiedCount === 1) {
+                    res.status(200).json((0, successHandler_1.successResponse)('Bike deleted successfully', {}));
+                    return;
+                }
+            }
+            catch (error) {
+                res
+                    .status(500)
+                    .json((0, errorHandler_1.errorResponse)(`Something went wrong when deleting bike`, error));
+            }
+        });
+    }
 }
 exports.default = new BikeController();

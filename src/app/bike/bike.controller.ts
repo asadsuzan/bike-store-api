@@ -146,6 +146,42 @@ class BikeController {
         .json(errorResponse('Something went wrong when updating', error));
     }
   }
+  /**
+   * . Delete a Bike
+   * @param req - express request object
+   * @param res - express response object
+   */
+  async deleteABike(req: Request, res: Response) {
+    const { productId } = req.params;
+    if (!Types.ObjectId.isValid(productId)) {
+      res
+        .status(400)
+        .json(errorResponse(`Invalid Object Id ${productId}`, 'Invalid ID'));
+      return;
+    }
+    try {
+      // check if bike not found
+      const bike = await BikeService.getSpecificBike(productId);
+      if (!bike) {
+        res
+          .status(404)
+          .json(
+            errorResponse(`No Bike found with id: ${productId}`, 'Not Found'),
+          );
+        return;
+      }
+      // delete bike
+      const deleteBike = await BikeService.deleteABike(productId);
+      if (deleteBike.acknowledged === true && deleteBike.modifiedCount === 1) {
+        res.status(200).json(successResponse('Bike deleted successfully', {}));
+        return;
+      }
+    } catch (error) {
+      res
+        .status(500)
+        .json(errorResponse(`Something went wrong when deleting bike`, error));
+    }
+  }
 }
 
 export default new BikeController();
