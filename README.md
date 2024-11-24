@@ -24,36 +24,36 @@ This project is a RESTful API built with Express and TypeScript to manage a bike
 
 This project requires Node.js and npm to be installed on your system.
 
-`Clone this repository:`
+1. Clone this repository:
 
-```Bash
+```bash
 git clone https://github.com/asadsuzan/bike-store-api.git
 ```
 
-`Navigate to the project directory:`
+2.  Navigate to the project directory:
 
-```Bash
+```bash
 cd bike-store-api-assingment-2
 ```
 
-`Install dependencies:`
+3. Install dependencies:`
 
 ```Bash
 npm install
 ```
 
-`Environment Variables`
+### Environment Variables
 
 Create a `.env` file in the root directory and configure the following variables:
 
-```env
+```json
 PORT = 5000
 DB_URI=<Your MongoDB Connection URI>
 ```
 
-`Running the API`
+### Running the API
 
-Start the development server:
+`Start the development server:`
 
 ```Bash
 npm run dev
@@ -61,94 +61,248 @@ npm run dev
 
 This will start the server on port 5000 by default. You can check the server status at http://localhost:5000/health
 
-`Production Mode:`
+### Deployment
 
-Build the project for production:
+The Bike Store API is deployed and live on Vercel, making it accessible for testing and integration. Use the following base URL to access the API:
 
-```Bash
-npm run build
+##### Base URL:
+
+https://bike-store-api.vercel.app
+
+Live API Endpoints:
+Health Check:
+Endpoint: /health
+Method: GET
+
+- Example Request:
+
+```javascript
+curl https://bike-store-api.vercel.app/health
+
 ```
 
-Run the production server:
+- Response:
 
-```Bash
-npm start
+```javascript
+{
+    "message": "Server is up and running!",
+    "success": true
+}
 ```
 
 ### API Documentation
 
 The API uses standard HTTP methods (GET, POST, PUT, DELETE) for CRUD operations. Refer to the specific endpoints below for details on request body formats and expected responses.
 
-#### Bikes:
+### Inventory :
 
 Create a Bike {POST}: `/api/products`
 
-Request Body:
-
-```JAVASCRIPT
+```code
+// Request Body:
 {
-  name: string;
-  brand: string;
-  price: number;
-  category: BikeCategory;
-  description: string;
-  quantity: number;
-  inStock: boolean;
-  isDeleted: boolean;
+    "name": "Xtreme Mountain Bike",
+    "brand": "Giant",
+    "price": 1200,
+    "category": "Mountain",
+    "description": "A high-performance bike built for    tough terrains.",
+    "quantity": 50,
+    "inStock": true
+  },
+
+//  Response: Success message and created bike details
+
+{
+    "message": "Bike created successfully",
+    "success": true,
+    "data": {
+        "name": "Xtreme Mountain Bike",
+        "brand": "Giant",
+        "price": 1200,
+        "category": "Mountain",
+        "description": "A high-performance bike built for tough terrains.",
+        "quantity": 50,
+        "inStock": true,
+        "isDeleted": false,
+        "_id": "674345ae91ea4f89e9cf522a",
+        "createdAt": "2024-11-24T15:26:38.272Z",
+        "updatedAt": "2024-11-24T15:26:38.272Z",
+        "__v": 0
+    }
 }
-  Response: Success message and created bike details
 ```
 
 Get All Bikes (GET) `/api/products`:
 
-##### Optional Query Param: `searchTerm` (string) - filter bikes by `name`, `brand`, or `category`
-
-Response: List of all bikes with details
-
-Get a Specific Bike ( GET) `/api/products/:productId:`
-
 ```javascript
-Path Param: productId (string) - ID of the bike
-Response: Details of the specific bike
+
+// Response: Success message and products list
+{
+    "message": "'Bikes retrieved successfully'",
+    "success": true,
+    "data": [
+        {
+            "_id": "674345ae91ea4f89e9cf522a",
+            "name": "Xtreme Mountain Bike",
+            "brand": "Giant",
+            "price": 1200,
+            "category": "Mountain",
+            "description": "A high-performance bike built for tough terrains.",
+            "quantity": 50,
+            "inStock": true,
+            "isDeleted": false,
+            "createdAt": "2024-11-24T15:26:38.272Z",
+            "updatedAt": "2024-11-24T15:26:38.272Z",
+            "__v": 0
+        },
+        // rest doc...
+
+        ]
+        }
 ```
 
-Update a Bike (PUT) `/api/products/:productId`:
+Get filtered Bikes (GET) `/api/products?searchTerm=Xtreme`:
+
+##### Optional Query Param: `searchTerm` (string) - filter bikes by `name`, `brand`, or `category`
 
 ```javascript
-Path Param: productId (string) - ID of the bike
-Request Body: Bike details to update (e.g., price, quantity)
-Response: Success message and updated bike details
+// Response: List of filtered bikes
+{
+    "message": "Bikes retrieved successfully for searchTerm: Xtreme",
+    "success": true,
+    "data": [
+        {
+            "_id": "674345ae91ea4f89e9cf522a",
+            "name": "Xtreme Mountain Bike",
+            "brand": "Giant",
+            "price": 1200,
+            "category": "Mountain",
+            "description": "A high-performance bike built for tough terrains.",
+            "quantity": 50,
+            "inStock": true,
+            "isDeleted": false,
+            "createdAt": "2024-11-24T15:26:38.272Z",
+            "updatedAt": "2024-11-24T15:26:38.272Z",
+            "__v": 0
+        },
+          // rest doc if matched...
+    ]
+}
+```
+
+Get a Specific Bike ( GET) `/api/products/:productId:
+
+Path Param: productId (string) - `ID` of the bike
+
+```javascript
+// Response: Details of the specific bike
+{
+    "message": "Bike Retrieves successfully for id: 674345ae91ea4f89e9cf522a",
+    "success": true,
+    "data": {
+        "_id": "674345ae91ea4f89e9cf522a",
+        "name": "Xtreme Mountain Bike",
+        "brand": "Giant",
+        "price": 1200,
+        "category": "Mountain",
+        "description": "A high-performance bike built for tough terrains.",
+        "quantity": 50,
+        "inStock": true,
+        "isDeleted": false,
+        "createdAt": "2024-11-24T15:26:38.272Z",
+        "updatedAt": "2024-11-24T15:26:38.272Z",
+        "__v": 0
+    }
+}
+```
+
+Update a Bike (PUT) `/api/products/:productId`
+
+Path Param: `productId` - `ID `of the bike
+
+```javascript
+//Request Body:
+{
+    "name": "Performance Road Bike",
+    "brand": "Cervelo",
+    rest as need..
+}
+// Response: Success message and updated bike details
+{
+    "message": "Bike updated successfully",
+    "success": true,
+    "data": {
+        "_id": "674345ae91ea4f89e9cf522a",
+        "name": "Performance Road Bike",
+        "brand": "Cervelo",
+        "price": 1200,
+        "category": "Mountain",
+        "description": "A high-performance bike built for tough terrains.",
+        "quantity": 50,
+        "inStock": true,
+        "isDeleted": false,
+        "createdAt": "2024-11-24T15:26:38.272Z",
+        "updatedAt": "2024-11-24T16:09:32.274Z",
+        "__v": 0
+    }
+}
 ```
 
 Delete a Bike (DELETE ) `/api/products/:productId`:
 
-```javascript
 Path Param: productId (string) - ID of the bike
 Response: Success message confirming deletion
+
+```javascript
+// Response: Success message
+{
+    "message": "Bike deleted successfully",
+    "success": true,
+    "data": {}
+}
 ```
 
-Orders:
+### Orders:
 
 Place an Order (POST) `/api/orders`:
 
-Request Body:
-
 ```javascript
+// Request Body:
 {
-
-  email: string;
-  product: ObjectId;
-  quantity: number;
-  totalPrice: number;
-
+  "email": "customer@example.com",
+  "product": "674346a891ea4f89e9cf5230",
+  "quantity": 2,
+  "totalPrice": 5000
 }
-Response: Success message confirming order creation
+// Response: Success message confirming order creation
+{
+    "message": "Order created successfully",
+    "success": true,
+    "data": {
+        "email": "customer@example.com",
+        "product": "674346a891ea4f89e9cf5230",
+        "quantity": 2,
+        "totalPrice": 5000,
+        "_id": "674351945d128547ad3fbf89",
+        "createdAt": "2024-11-24T16:17:24.253Z",
+        "updatedAt": "2024-11-24T16:17:24.253Z",
+        "__v": 0
+    }
+}
+
 ```
 
 Calculate Revenue from Orders (GET) `/api/orders/revenue`:
 
 ```javascript
-Response: Total revenue from all orders
+// Response: Total revenue from all orders
+{
+    "message": "Revenue calculated successfully",
+    "success": true,
+    "data": {
+        "totalRevenue": 5000
+    }
+}
 ```
 
 #### Error Handling
