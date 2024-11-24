@@ -1,87 +1,95 @@
-### Bike Store API - Assignment 2
+# 🚲 Bike Store API - Assignment 2
 
-This project is a RESTful API built with Express and TypeScript to manage a bike store. It uses MongoDB with Mongoose for data storage and retrieval.
+This project is a RESTful API built with **Express** and **TypeScript** to manage a bike store. It uses **MongoDB** with Mongoose for data storage and retrieval.
 
-### Features
+---
 
-#### CRUD Operations for Bikes:
+## ✨ Features
 
-- Create new bikes
-- Get a list of all bikes
-- Get a specific bike by ID
-- Update an existing bike
-- Delete a bike
+### CRUD Operations for Bikes:
 
-#### Order Management:
+- ➕ **Create new bikes**
+- 📋 **Get a list of all bikes**
+- 🔍 **Get a specific bike by ID**
+- ✏️ **Update an existing bike**
+- ❌ **Delete a bike**
 
-- Place orders for bikes
-- Inventory management - updates quantity and stock status
-- Handles insufficient stock scenarios
-- Order Revenue Calculation:
-- Calculates total revenue from all orders
+### Order Management:
 
-### Getting Started
+- 🛒 **Place orders for bikes**
+- 📦 **Inventory Management**  
+  Updates quantity and stock status
+- 🚨 **Handles insufficient stock scenarios**
+- 💰 **Order Revenue Calculation**  
+  Calculates total revenue from all orders
 
-This project requires Node.js and npm to be installed on your system.
+---
+
+## 🚀 Getting Started
+
+This project requires **Node.js** and **npm** to be installed on your system.
 
 1. Clone this repository:
 
+   ```bash
+   git clone https://github.com/asadsuzan/bike-store-api.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd bike-store-api-assignment-2
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+
+   ```
+
+4. Create a `.env` file in the root directory and configure the following variables:
+
+   ```json
+   PORT=5000
+   DB_URI=<Your MongoDB Connection URI>
+
+   ```
+
+### ▶️ Running the API
+
+Start the development server:
+
 ```bash
-git clone https://github.com/asadsuzan/bike-store-api.git
-```
-
-2.  Navigate to the project directory:
-
-```bash
-cd bike-store-api-assingment-2
-```
-
-3. Install dependencies:`
-
-```Bash
-npm install
-```
-
-### Environment Variables
-
-Create a `.env` file in the root directory and configure the following variables:
-
-```json
-PORT = 5000
-DB_URI=<Your MongoDB Connection URI>
-```
-
-### Running the API
-
-`Start the development server:`
-
-```Bash
 npm run dev
 ```
 
-This will start the server on port 5000 by default. You can check the server status at http://localhost:5000/health
+This will start the server on port 5000 by default.
 
-### Deployment
+Check the server status at:
+http://localhost:5000/health
 
-The Bike Store API is deployed and live on Vercel, making it accessible for testing and integration. Use the following base URL to access the API:
+### 🌐 Deployment
 
-##### Base URL:
+The Bike Store API is deployed and live on Vercel, making it accessible for testing and integration.
 
-https://bike-store-api.vercel.app
+**Base URL:**  
+🌍 [https://bike-store-api.vercel.app](https://bike-store-api.vercel.app)
 
-Live API Endpoints:
-Health Check:
-Endpoint: /health
-Method: GET
+#### 🔎 Live API Endpoints
 
-- Example Request:
+**Health Check**
 
-```javascript
+- **Endpoint:** `/health`
+- **Method:** `GET`
+
+**Example Request:**
+
+```bash
 curl https://bike-store-api.vercel.app/health
-
 ```
 
-- Response:
+Response:
 
 ```javascript
 {
@@ -90,221 +98,201 @@ curl https://bike-store-api.vercel.app/health
 }
 ```
 
-### API Documentation
+### 📚 API Documentation
 
-The API uses standard HTTP methods (GET, POST, PUT, DELETE) for CRUD operations. Refer to the specific endpoints below for details on request body formats and expected responses.
+The API uses standard HTTP methods (`GET`, `POST`, `PUT`, `DELETE`) for CRUD operations. Below is the detailed documentation of the endpoints.
 
-### Inventory :
+---
 
-Create a Bike {POST}: `/api/products`
+## 🚴 Inventory
 
-```code
-// Request Body:
+### ➕ Create a Bike
+
+- **Endpoint**: `/api/products`
+- **Method**: `POST`
+
+**Request Body:**
+
+```json
 {
+  "name": "Xtreme Mountain Bike",
+  "brand": "Giant",
+  "price": 1200,
+  "category": "Mountain",
+  "description": "A high-performance bike built for tough terrains.",
+  "quantity": 50,
+  "inStock": true
+}
+```
+
+**Response:**
+
+```json
+{
+  "message": "Bike created successfully",
+  "success": true,
+  "data": {
     "name": "Xtreme Mountain Bike",
     "brand": "Giant",
     "price": 1200,
     "category": "Mountain",
-    "description": "A high-performance bike built for    tough terrains.",
+    "description": "A high-performance bike built for tough terrains.",
     "quantity": 50,
     "inStock": true
-  },
+  }
+}
+```
 
-//  Response: Success message and created bike details
+### 📋 Get All Bikes
 
+- **Endpoint:** `/api/products`
+- **Method:** `GET`
+
+**Response:**
+
+```json
 {
-    "message": "Bike created successfully",
-    "success": true,
-    "data": {
-        "name": "Xtreme Mountain Bike",
-        "brand": "Giant",
-        "price": 1200,
-        "category": "Mountain",
-        "description": "A high-performance bike built for tough terrains.",
-        "quantity": 50,
-        "inStock": true,
-        "isDeleted": false,
-        "_id": "674345ae91ea4f89e9cf522a",
-        "createdAt": "2024-11-24T15:26:38.272Z",
-        "updatedAt": "2024-11-24T15:26:38.272Z",
-        "__v": 0
+  "message": "Bikes retrieved successfully",
+  "success": true,
+  "data": [
+    {
+      "name": "Xtreme Mountain Bike",
+      "brand": "Giant",
+      "price": 1200,
+      "category": "Mountain",
+      "description": "A high-performance bike built for tough terrains.",
+      "quantity": 50,
+      "inStock": true
     }
+  ]
 }
 ```
 
-Get All Bikes (GET) `/api/products`:
+### 🔍 Get a Specific Bike
 
-```javascript
+- **Endpoint:** `/api/products/:productId`
+- **Method:** `GET`
+- **Path Param:** productId (string) - ID of the bike
 
-// Response: Success message and products list
+**Response:**
+
+```json
 {
-    "message": "'Bikes retrieved successfully'",
-    "success": true,
-    "data": [
-        {
-            "_id": "674345ae91ea4f89e9cf522a",
-            "name": "Xtreme Mountain Bike",
-            "brand": "Giant",
-            "price": 1200,
-            "category": "Mountain",
-            "description": "A high-performance bike built for tough terrains.",
-            "quantity": 50,
-            "inStock": true,
-            "isDeleted": false,
-            "createdAt": "2024-11-24T15:26:38.272Z",
-            "updatedAt": "2024-11-24T15:26:38.272Z",
-            "__v": 0
-        },
-        // rest doc...
-
-        ]
-        }
-```
-
-Get filtered Bikes (GET) `/api/products?searchTerm=Xtreme`:
-
-##### Optional Query Param: `searchTerm` (string) - filter bikes by `name`, `brand`, or `category`
-
-```javascript
-// Response: List of filtered bikes
-{
-    "message": "Bikes retrieved successfully for searchTerm: Xtreme",
-    "success": true,
-    "data": [
-        {
-            "_id": "674345ae91ea4f89e9cf522a",
-            "name": "Xtreme Mountain Bike",
-            "brand": "Giant",
-            "price": 1200,
-            "category": "Mountain",
-            "description": "A high-performance bike built for tough terrains.",
-            "quantity": 50,
-            "inStock": true,
-            "isDeleted": false,
-            "createdAt": "2024-11-24T15:26:38.272Z",
-            "updatedAt": "2024-11-24T15:26:38.272Z",
-            "__v": 0
-        },
-          // rest doc if matched...
-    ]
+  "message": "Bike retrieved successfully",
+  "success": true,
+  "data": {
+    "name": "Xtreme Mountain Bike",
+    "brand": "Giant",
+    "price": 1200,
+    "category": "Mountain",
+    "description": "A high-performance bike built for tough terrains.",
+    "quantity": 50,
+    "inStock": true
+  }
 }
 ```
 
-Get a Specific Bike ( GET) `/api/products/:productId:
+### ✏️ Update a Bike
 
-Path Param: productId (string) - `ID` of the bike
+- **Endpoint:** `/api/products/:productId`
+- **Method:** `PUT`
+- **Path Param:** productId (string) - ID of the bike
 
-```javascript
-// Response: Details of the specific bike
+**Request Body:**
+
+```json
 {
-    "message": "Bike Retrieves successfully for id: 674345ae91ea4f89e9cf522a",
-    "success": true,
-    "data": {
-        "_id": "674345ae91ea4f89e9cf522a",
-        "name": "Xtreme Mountain Bike",
-        "brand": "Giant",
-        "price": 1200,
-        "category": "Mountain",
-        "description": "A high-performance bike built for tough terrains.",
-        "quantity": 50,
-        "inStock": true,
-        "isDeleted": false,
-        "createdAt": "2024-11-24T15:26:38.272Z",
-        "updatedAt": "2024-11-24T15:26:38.272Z",
-        "__v": 0
-    }
+  "name": "Performance Road Bike",
+  "brand": "Cervelo"
 }
 ```
 
-Update a Bike (PUT) `/api/products/:productId`
+**Response:**
 
-Path Param: `productId` - `ID `of the bike
-
-```javascript
-//Request Body:
+```json
 {
+  "message": "Bike updated successfully",
+  "success": true,
+  "data": {
     "name": "Performance Road Bike",
     "brand": "Cervelo",
-    rest as need..
-}
-// Response: Success message and updated bike details
-{
-    "message": "Bike updated successfully",
-    "success": true,
-    "data": {
-        "_id": "674345ae91ea4f89e9cf522a",
-        "name": "Performance Road Bike",
-        "brand": "Cervelo",
-        "price": 1200,
-        "category": "Mountain",
-        "description": "A high-performance bike built for tough terrains.",
-        "quantity": 50,
-        "inStock": true,
-        "isDeleted": false,
-        "createdAt": "2024-11-24T15:26:38.272Z",
-        "updatedAt": "2024-11-24T16:09:32.274Z",
-        "__v": 0
-    }
+    "price": 1500,
+    "category": "Road",
+    "description": "Built for speed on paved roads."
+  }
 }
 ```
 
-Delete a Bike (DELETE ) `/api/products/:productId`:
+### ❌ Delete a Bike
 
-Path Param: productId (string) - ID of the bike
-Response: Success message confirming deletion
+- **Endpoint:** `/api/products/:productId`
+- **Method:** `DELETE`
+- **Path Param:** productId (string) - ID of the bike
 
-```javascript
-// Response: Success message
+**Response:**
+
+```json
 {
-    "message": "Bike deleted successfully",
-    "success": true,
-    "data": {}
+  "message": "Bike deleted successfully",
+  "success": true
 }
 ```
 
-### Orders:
+## 🛒 Orders
 
-Place an Order (POST) `/api/orders`:
+### ➕ Place an Order
 
-```javascript
-// Request Body:
+- **Endpoint**: `/api/orders`
+- **Method**: `POST`
+
+**Request Body:**
+
+```json
 {
   "email": "customer@example.com",
   "product": "674346a891ea4f89e9cf5230",
   "quantity": 2,
   "totalPrice": 5000
 }
-// Response: Success message confirming order creation
-{
-    "message": "Order created successfully",
-    "success": true,
-    "data": {
-        "email": "customer@example.com",
-        "product": "674346a891ea4f89e9cf5230",
-        "quantity": 2,
-        "totalPrice": 5000,
-        "_id": "674351945d128547ad3fbf89",
-        "createdAt": "2024-11-24T16:17:24.253Z",
-        "updatedAt": "2024-11-24T16:17:24.253Z",
-        "__v": 0
-    }
-}
-
 ```
 
-Calculate Revenue from Orders (GET) `/api/orders/revenue`:
+**Response:**
 
-```javascript
-// Response: Total revenue from all orders
+```json
 {
-    "message": "Revenue calculated successfully",
-    "success": true,
-    "data": {
-        "totalRevenue": 5000
-    }
+  "message": "Order created successfully",
+  "success": true,
+  "data": {
+    "email": "customer@example.com",
+    "product": "674346a891ea4f89e9cf5230",
+    "quantity": 2,
+    "totalPrice": 5000
+  }
 }
 ```
 
-#### Error Handling
+### 💰 Calculate Revenue
 
-The API uses standard HTTP status codes to indicate success or failure. In case of errors, the response will include an error message and details about the issue.
+- **Endpoint:** `/api/orders/revenue`
+- **Method:** `GET`
+
+**Response:**
+
+```json
+{
+  "message": "Revenue calculated successfully",
+  "success": true,
+  "data": {
+    "totalRevenue": 5000
+  }
+}
+```
+
+⚠️ Error Handling
+The API uses standard HTTP status codes to indicate success or failure. In case of errors, the response includes an error message and details about the issue.
+
+🛠️ Development
+
+- Fork the repository and clone it locally.
+- Follow the steps under Getting Started.
+- Open a pull request for feature updates or bug fixes.
