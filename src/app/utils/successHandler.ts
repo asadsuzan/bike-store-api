@@ -4,7 +4,13 @@
  * @param data - The data returned by the operation (e.g., created bike details).
  * @returns A structured success response.
  */
-export function successResponse(message: string, data: any) {
+
+interface SuccessResponse<T> {
+  message: string;
+  success: true;
+  data: T;
+}
+export function successResponse<T>(message: string, data: T): SuccessResponse<T> {
   return {
     message,
     success: true,

@@ -28,26 +28,34 @@ class OrderController {
                 // Call the service to create the order
                 const newOrder = yield order_service_1.default.createOrder(orderData);
                 // Respond with the created order
-                res.status(201).json((0, successHandler_1.successResponse)('Order created successfully', newOrder));
+                res
+                    .status(201)
+                    .json((0, successHandler_1.successResponse)('Order created successfully', newOrder));
             }
             catch (error) {
-                res.status(500).json((0, errorHandler_1.errorResponse)('An error occurred while creating the order', error));
+                res
+                    .status(500)
+                    .json((0, errorHandler_1.errorResponse)('An error occurred while creating the order', error));
             }
         });
     }
     /**
- * Calculate Revenue from Orders
- * @param req - HTTP request
- * @param res - HTTP response
- */
+     * Calculate Revenue from Orders
+     * @param req - HTTP request
+     * @param res - HTTP response
+     */
     calculateRevenue(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 const data = yield order_service_1.default.calculateRevenue();
-                res.status(200).json((0, successHandler_1.successResponse)('Revenue calculated successfully', data));
+                res
+                    .status(200)
+                    .json((0, successHandler_1.successResponse)('Revenue calculated successfully', data));
             }
             catch (error) {
-                res.status(500).json((0, errorHandler_1.errorResponse)('An error occurred while calculating revenue', error));
+                res
+                    .status(500)
+                    .json((0, errorHandler_1.errorResponse)('An error occurred while calculating revenue', error));
             }
         });
     }

@@ -49,13 +49,13 @@ class OrderService {
         });
     }
     /**
-       * Calculate Revenue
-       * @returns - The total revenue from all orders.
-       */
+     * Calculate Revenue
+     * @returns - The total revenue from all orders.
+     */
     calculateRevenue() {
         return __awaiter(this, void 0, void 0, function* () {
             const orders = yield order_model_1.default.aggregate([
-                { $group: { _id: null, totalRevenue: { $sum: '$totalPrice' } } }
+                { $group: { _id: null, totalRevenue: { $sum: '$totalPrice' } } },
             ]);
             const data = { totalRevenue: 0 };
             if (orders.length > 0) {

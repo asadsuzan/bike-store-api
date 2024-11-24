@@ -25,7 +25,7 @@ class BikeService {
 
   /**
    * Get a Specific Bike
-   * @param id (ObjectId) - Data to create a bike
+   * @param id (ObjectId) - id to retrieves a specific bike
    * @returns matched bike document
    */
 
@@ -35,7 +35,7 @@ class BikeService {
   }
   /**
    * Update a Bike
-   * @param id (ObjectId) - Data to create a bike
+   * @param id (ObjectId) - id to update a specific bike
    * @param bikeData  - Data to update a bike
    * @returns updated bike document
    */
@@ -49,7 +49,7 @@ class BikeService {
   }
   /**
    *  Delete a Bike
-   * @param id (ObjectId)
+   * @param id (ObjectId) id to delete a specific bike
    * @returns Success message confirming the bike has been deleted.
    */
   async deleteABike(id: string) {

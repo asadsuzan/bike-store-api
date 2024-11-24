@@ -7,11 +7,18 @@
  * @param stack - The stack trace
  * @returns A structured error response
  */
-export function errorResponse(message: string, error: any, stack?: string) {
+interface ErrorResponse {
+  message: string;
+  success: boolean;
+  error: unknown;
+  stack: string;
+}
+
+export function errorResponse(message: string, error: unknown, stack?: string): ErrorResponse {
   return {
     message,
     success: false,
     error,
-    stack: stack || error?.stack || 'No stack trace available',
+    stack: stack || (error as Error)?.stack || 'No stack trace available',
   };
 }

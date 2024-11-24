@@ -3,7 +3,6 @@ import BikeService from './bike.service';
 
 // import generic error handler
 import { errorResponse } from '../utils/errorHandler';
-
 // import generic success handler
 import { successResponse } from '../utils/successHandler';
 // import core modules
@@ -42,7 +41,7 @@ class BikeController {
   }
 
   /**
-   * crate a new bike
+   * Get All Bikes
    * @param req - express request object
    * @param res - express response object
    */
@@ -54,12 +53,12 @@ class BikeController {
       // Build the query dynamically
       const query = searchTerm
         ? {
-            $or: [
-              { name: { $regex: searchTerm, $options: 'i' } },
-              { brand: { $regex: searchTerm, $options: 'i' } },
-              { category: { $regex: searchTerm, $options: 'i' } },
-            ],
-          }
+          $or: [
+            { name: { $regex: searchTerm, $options: 'i' } },
+            { brand: { $regex: searchTerm, $options: 'i' } },
+            { category: { $regex: searchTerm, $options: 'i' } },
+          ],
+        }
         : {};
       const bikes = await BikeService.getBikes(query);
 
@@ -81,7 +80,7 @@ class BikeController {
   }
 
   /**
-   * . Get a Specific Bike
+   * .Get a Specific Bike
    * @param req - express request object
    * @param res - express response object
    */
@@ -129,7 +128,7 @@ class BikeController {
   }
 
   /**
-   * . Update a Bike
+   * .Update a Bike
    * @param req - express request object
    * @param res - express response object
    */

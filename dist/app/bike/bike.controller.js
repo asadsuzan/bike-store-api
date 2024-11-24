@@ -45,7 +45,7 @@ class BikeController {
         });
     }
     /**
-     * crate a new bike
+     * Get All Bikes
      * @param req - express request object
      * @param res - express response object
      */
@@ -78,7 +78,7 @@ class BikeController {
         });
     }
     /**
-     * . Get a Specific Bike
+     * .Get a Specific Bike
      * @param req - express request object
      * @param res - express response object
      */
@@ -112,7 +112,7 @@ class BikeController {
         });
     }
     /**
-     * . Update a Bike
+     * .Update a Bike
      * @param req - express request object
      * @param res - express response object
      */
