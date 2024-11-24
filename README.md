@@ -74,7 +74,7 @@ http://localhost:5000/health
 The Bike Store API is deployed and live on Vercel, making it accessible for testing and integration.
 
 **Base URL:**  
-🌍 [https://bike-store-api.vercel.app](https://bike-store-api.vercel.app)
+🌍 [https://bike-store-api-assingment02.vercel.app](https://bike-store-api-assingment02.vercel.app)
 
 #### 🔎 Live API Endpoints
 
@@ -86,7 +86,7 @@ The Bike Store API is deployed and live on Vercel, making it accessible for test
 **Example Request:**
 
 ```bash
-curl https://bike-store-api.vercel.app/health
+curl https://bike-store-api-assingment02.vercel.app/health
 ```
 
 Response:
