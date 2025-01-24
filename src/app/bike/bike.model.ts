@@ -42,7 +42,7 @@ const BikeSchema: Schema<IBikeDocument> = new Schema<IBikeDocument>(
     },
     inStock: {
       type: Boolean,
-      required: true,
+      default: false,
     },
     isDeleted: {
       type: Boolean,
@@ -62,6 +62,15 @@ BikeSchema.pre('findOne', function (next) {
   next();
 });
 
+// Pre-save hook to update the `inStock` property based on the `quantity`
+BikeSchema.pre('save', function (next) {
+  const bike = this as IBikeDocument;
+
+  // Set `inStock` based on the `quantity`
+  bike.inStock = bike.quantity > 0;
+
+  next();
+});
 // Create the bike model
 const BikeModel: Model<IBikeDocument> = mongoose.model<IBikeDocument>(
   'Bike',

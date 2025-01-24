@@ -53,12 +53,12 @@ class BikeController {
       // Build the query dynamically
       const query = searchTerm
         ? {
-          $or: [
-            { name: { $regex: searchTerm, $options: 'i' } },
-            { brand: { $regex: searchTerm, $options: 'i' } },
-            { category: { $regex: searchTerm, $options: 'i' } },
-          ],
-        }
+            $or: [
+              { name: { $regex: searchTerm, $options: 'i' } },
+              { brand: { $regex: searchTerm, $options: 'i' } },
+              { category: { $regex: searchTerm, $options: 'i' } },
+            ],
+          }
         : {};
       const bikes = await BikeService.getBikes(query);
 

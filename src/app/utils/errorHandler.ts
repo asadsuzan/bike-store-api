@@ -14,7 +14,11 @@ interface ErrorResponse {
   stack: string;
 }
 
-export function errorResponse(message: string, error: unknown, stack?: string): ErrorResponse {
+export function errorResponse(
+  message: string,
+  error: unknown,
+  stack?: string,
+): ErrorResponse {
   return {
     message,
     success: false,
