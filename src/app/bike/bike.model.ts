@@ -47,9 +47,10 @@ const BikeSchema: Schema<IBikeDocument> = new Schema<IBikeDocument>(
     isDeleted: {
       type: Boolean,
       default: false,
+      select: false,
     },
   },
-  { timestamps: true },
+  { timestamps: true, versionKey: false },
 );
 
 // HOOK FOR EXCLUDE DELETED BIKE WHEN FIND
