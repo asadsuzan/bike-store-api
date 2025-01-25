@@ -6,6 +6,7 @@ import helmet from 'helmet'; // Middleware for security headers
 // import routes
 import bikeRoutes from './app/bike/bike.route';
 import orderRoutes from './app/orders/order.route';
+import userRoutes from './app/user/user.route';
 
 // Create the Express app
 const app: Application = express();
@@ -20,6 +21,7 @@ app.use(helmet()); // Secure app by setting various HTTP headers
 app.use('/api', bikeRoutes);
 // use the order route
 app.use('/api', orderRoutes);
+app.use('/api/user', userRoutes);
 
 // Health check endpoint
 app.get('/health', (req: Request, res: Response) => {
