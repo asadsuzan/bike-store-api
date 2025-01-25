@@ -17,6 +17,19 @@ class UserController {
    */
 
   async registerNewUser(req: Request, res: Response): Promise<void> {
+    // validate user input
+    const { email, password, name } = req.body;
+    if (!email || !password || !name) {
+      res
+        .status(400)
+        .json(
+          errorResponse(
+            'Email, password and name are required',
+            'Invalid inputs',
+          ),
+        );
+      return;
+    }
     try {
       const user = await userService.registerNewUser(req.body);
       if (!user) {
@@ -30,6 +43,9 @@ class UserController {
           );
         return;
       }
+
+      // remove the password from the user object
+
       res
         .status(201)
         .json(successResponse('User Registered successfully', user));
