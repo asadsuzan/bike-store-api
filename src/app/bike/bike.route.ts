@@ -8,6 +8,8 @@ import BikeController from './bike.controller';
 import validateQuery from '../middleware/validateQuery';
 import validateAndPrepareUpdate from '../middleware/validateRequestBody';
 import BikeModel from './bike.model';
+import auth from '../middleware/auth';
+import { UserRoles } from '../user/user.constants';
 
 /**
  * create a new bike
@@ -15,7 +17,7 @@ import BikeModel from './bike.model';
  * @method: POST
  */
 
-router.post('/products', BikeController.createBike);
+router.post('/products', auth(UserRoles.admin), BikeController.createBike);
 
 /**
  * Get All Bikes
@@ -38,6 +40,7 @@ router.get('/products/:productId', BikeController.getSpecificBike);
  */
 router.put(
   '/products/:productId',
+  auth(UserRoles.admin),
   validateAndPrepareUpdate(BikeModel),
   BikeController.updateABike,
 );
@@ -46,5 +49,9 @@ router.put(
  * @endpoint  /api/products/:productId
  * @method: DELETE
  */
-router.delete('/products/:productId', BikeController.deleteABike);
+router.delete(
+  '/products/:productId',
+  auth(UserRoles.admin),
+  BikeController.deleteABike,
+);
 export default router;
