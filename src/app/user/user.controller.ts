@@ -55,6 +55,45 @@ class UserController {
       res.status(500).json(errorResponse(message, error));
     }
   }
+
+  /**
+   * login user
+   * @param req - express request object
+   * @param res - express response object
+   */
+  async loginUser(req: Request, res: Response): Promise<void> {
+    const { email, password } = req.body;
+    if (!email || !password) {
+      res
+        .status(400)
+        .json(
+          errorResponse('Email and password are required', 'Invalid inputs'),
+        );
+      return;
+    }
+    try {
+      const user = await userService.loginUser(email, password);
+      if (!user) {
+        res
+          .status(400)
+          .json(
+            errorResponse(
+              'Failed to login user, Please check your input',
+              'Invalid inputs',
+            ),
+          );
+        return;
+      }
+
+      res
+        .status(200)
+        .json(successResponse('User Logged in successfully', user));
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : 'An error occurred';
+      res.status(500).json(errorResponse(message, error));
+    }
+  }
 }
 
 export default new UserController();

@@ -11,5 +11,10 @@ import UserController from './user.controller';
  */
 
 router.post('/register', UserController.registerNewUser);
-
+/**
+ * login user
+ * @endpoint  /api/user/login
+ * @method: POST
+ */
+router.post('/login', UserController.loginUser);
 export default router;

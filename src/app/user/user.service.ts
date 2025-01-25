@@ -1,5 +1,7 @@
 // import user model modules
 
+import config from '../../config';
+import { createToken } from '../utils/createToken';
 import { TUser } from './user.interface';
 import User from './user.model';
 import bcrypt from 'bcrypt';
@@ -39,6 +41,39 @@ class UserService {
     });
 
     return userWithoutPassword;
+  }
+
+  /**
+   * login a user
+   * @param email - Email of the user
+   * @param password - Password of the user
+   * @returns User document
+   */
+  async loginUser(email: string, password: string) {
+    // check if the user exists
+    const user = await User.findOne({
+      email,
+    }).select('+password');
+    if (!user) {
+      throw new Error('Invalid email or password');
+    }
+    // compare the password
+    const isValidPassword = await bcrypt.compare(password, user.password);
+    if (!isValidPassword) {
+      throw new Error('Invalid email or password');
+    }
+    // crate a token
+    const accessToken = createToken(
+      {
+        userId: user._id as unknown as string,
+        role: user.role,
+      },
+      config.jwt_secret as string,
+      '10D',
+    );
+    return {
+      accessToken,
+    };
   }
 }
 
