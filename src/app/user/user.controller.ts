@@ -8,6 +8,7 @@ import { successResponse } from '../utils/successHandler';
 import { Request, Response } from 'express';
 
 import userService from './user.service';
+import config from '../../config';
 
 class UserController {
   /**
@@ -84,7 +85,11 @@ class UserController {
           );
         return;
       }
+      res.cookie('refreshToken', user.refreshToken, {
+        secure: config.node_env === 'production',
 
+        httpOnly: true,
+      });
       res
         .status(200)
         .json(successResponse('User Logged in successfully', user));

@@ -12,6 +12,7 @@ const config = {
   db_uri: process.env.DB_URI,
   jwt_secret: process.env.JWT_SECRET,
   jwt_expiration_time: process.env.JWT_EXPIRATION_TIME,
+  node_env: process.env.NODE_ENV,
 };
 
 export default config;

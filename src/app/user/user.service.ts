@@ -71,8 +71,20 @@ class UserService {
       config.jwt_secret as string,
       '10D',
     );
+
+    // create a refresh token
+    const refreshToken = createToken(
+      {
+        userId: user._id as unknown as string,
+        role: user.role,
+      },
+      config.jwt_secret as string,
+      '30D',
+    );
+
     return {
       accessToken,
+      refreshToken,
     };
   }
 }
