@@ -1,6 +1,8 @@
 //import core modules
 import express from 'express';
 import orderController from './order.controller';
+import auth from '../middleware/auth';
+import { UserRoles } from '../user/user.constants';
 
 const router = express.Router();
 
@@ -10,12 +12,6 @@ const router = express.Router();
  * @method: POST
  */
 
-router.post('/orders', orderController.createOrder);
-/**
- * Calculate Revenue from Orders
- * @endpoint  /api/orders/revenue
- * @method: GET
- */
-router.get('/orders/revenue', orderController.calculateRevenue);
+router.post('/orders', auth(UserRoles.customer), orderController.createOrder);
 
 export default router;

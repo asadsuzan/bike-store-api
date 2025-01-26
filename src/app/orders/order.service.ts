@@ -1,6 +1,7 @@
 import BikeService from '../bike/bike.service';
+
 import IOrder from './order.interface';
-import OrderModel, { IOrderDocument } from './order.model';
+import OrderModel from './order.model';
 
 class OrderService {
   /**
@@ -8,50 +9,52 @@ class OrderService {
    * @param orderData - Data for the new order
    * @returns - Created order document
    */
-  async createOrder(orderData: IOrder): Promise<IOrderDocument> {
-    const { product, quantity } = orderData;
-    const productId = String(product);
-    // check if the request for the product is exits on bikes document
-    const bike = await BikeService.getSpecificBike(productId);
-    if (!bike) {
-      throw new Error('Product not found');
+  async createOrder(orderData: IOrder) {
+    try {
+      // get the bike
+      const bike = await BikeService.getSpecificBike(
+        orderData.product as unknown as string,
+      );
+      if (!bike) {
+        return {
+          message: 'Product not found',
+          success: false,
+        };
+      }
+      // check if the bike is in stock
+      if (!bike.inStock) {
+        return {
+          message: 'Product out of stock',
+          success: false,
+        };
+      }
+      // check if the quantity is available
+      if (bike.quantity < orderData.quantity) {
+        return {
+          message: 'Quantity not available',
+          success: false,
+        };
+      }
+      // calculate the total price
+      orderData.totalPrice = bike.price * orderData.quantity;
+      // create the order
+      const order = await OrderModel.create(orderData);
+      // update the bike quantity
+      bike.quantity -= orderData.quantity;
+      await bike.save();
+
+      return {
+        message: 'Order created successfully',
+        success: true,
+        data: order,
+      };
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (e) {
+      return {
+        message: 'An error occurred',
+        success: false,
+      };
     }
-    // check if the requested quantity is available in the bike
-    if (bike.quantity < quantity || bike.inStock === false) {
-      throw new Error('Not enough quantity available');
-    }
-
-    // reduce the quantity of the bike
-    bike.quantity -= quantity;
-    // If the  quantity goes to zero, set inStock to false.
-    if (bike.quantity === 0) {
-      bike.inStock = false;
-    }
-    await BikeService.updateABike(productId, bike);
-
-    // calculate the total price
-    const totalPrice = bike.price * quantity;
-    orderData.totalPrice = totalPrice;
-
-    // create a new order
-    const newOrder = new OrderModel(orderData);
-    return await newOrder.save();
-  }
-  /**
-   * Calculate Revenue
-   * @returns - The total revenue from all orders.
-   */
-
-  async calculateRevenue() {
-    const orders = await OrderModel.aggregate([
-      { $group: { _id: null, totalRevenue: { $sum: '$totalPrice' } } },
-    ]);
-    const data = { totalRevenue: 0 };
-    if (orders.length > 0) {
-      data.totalRevenue = orders[0].totalRevenue;
-    }
-
-    return data;
   }
 }
 
