@@ -27,8 +27,8 @@ router.post('/products', auth(UserRoles.admin), BikeController.createBike);
 router.get('/products', validateQuery, BikeController.getBikes);
 
 /**
- * Get All Bikes
- * @endpoint  /api/products/::productId
+ * Get single Bike
+ * @endpoint  /api/products/:productId
  * @method: GET
  */
 router.get('/products/:productId', BikeController.getSpecificBike);
