@@ -1,25 +1,21 @@
-// import core modules
-
+// src/models/Order.ts
 import mongoose, { Schema } from 'mongoose';
+import { IOrder } from './order.interface';
 
-import IOrder from './order.interface';
-
-const OrderSchema = new Schema<IOrder>(
+// Order Schema
+const OrderSchema: Schema = new Schema(
   {
-    customer: { type: String, required: [true, 'email is required'] },
-    product: { type: String, required: [true, 'product is required'] },
-    quantity: { type: Number, required: [true, 'Quantity is required'] },
-    totalPrice: { type: Number, required: [true, 'Total price is required'] },
-    status: {
-      type: String,
-      enum: ['pending', 'delivered', 'cancelled'],
-      default: 'pending',
-    },
+    items: [
+      {
+        productId: { type: String, required: true },
+        quantity: { type: Number, required: true },
+      },
+    ],
+    user: { type: String, required: true },
+    status: { type: String, default: 'Pending' },
+    totalPrice: { type: Number, required: true },
   },
   { timestamps: true },
 );
 
-// crate the order model
-const OrderModel = mongoose.model<IOrder>('orders', OrderSchema);
-
-export default OrderModel;
+export const Order = mongoose.model<IOrder>('Order', OrderSchema);

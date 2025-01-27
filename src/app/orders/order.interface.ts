@@ -1,12 +1,15 @@
-// import core modules
-import { ObjectId } from 'mongoose';
+import { Document } from 'mongoose';
 
-interface IOrder {
-  customer: ObjectId;
-  product: ObjectId;
+// Order Item Interface
+export interface IOrderItem {
+  productId: string;
   quantity: number;
-  totalPrice: number;
-  status: 'pending' | 'delivered' | 'cancelled';
 }
 
-export default IOrder;
+// Order Interface
+export interface IOrder extends Document {
+  items: IOrderItem[];
+  user: string;
+  status: string; // e.g., "Pending", "Completed", "Cancelled"
+  totalPrice: number; // Total price of the order
+}

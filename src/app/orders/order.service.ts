@@ -1,57 +1,102 @@
-import BikeService from '../bike/bike.service';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import Stripe from 'stripe';
 
-import IOrder from './order.interface';
-import OrderModel from './order.model';
+import BikeService from '../bike/bike.service';
+import { IOrder } from './order.interface';
+import { Order } from './order.model';
+
+const stripe = new Stripe(
+  'sk_test_51O9qBfLMULfZjXPmsgXEVtLXf0iEktwIwAKmIScIh3mKLAlfBd0dEUDxZ6gKQ1qwsUwIZdXJXGlNOTJafuvW7XJ200Z7T5QOsm',
+  {
+    apiVersion: '2024-12-18.acacia',
+  },
+);
 
 class OrderService {
   /**
    * Create a new order
-   * @param orderData - Data for the new order
-   * @returns - Created order document
+   * @param userId - ID of the user placing the order
+   * @param items - Array of order items
+   * @returns - Created order document or error message
    */
-  async createOrder(orderData: IOrder) {
+  async createOrder(
+    userId: string,
+    items: { productId: string; quantity: number }[],
+  ) {
     try {
-      // get the bike
-      const bike = await BikeService.getSpecificBike(
-        orderData.product as unknown as string,
-      );
-      if (!bike) {
+      if (!items || items.length === 0) {
         return {
-          message: 'Product not found',
+          message: 'Order must contain at least one item.',
           success: false,
         };
       }
-      // check if the bike is in stock
-      if (!bike.inStock) {
-        return {
-          message: 'Product out of stock',
-          success: false,
-        };
+
+      const updatedItems = [];
+      let totalPrice = 0;
+
+      for (const item of items) {
+        // Get the product details
+        const bike = await BikeService.getSpecificBike(item.productId);
+
+        if (!bike) {
+          return {
+            message: `Product with ID ${item.productId} not found`,
+            success: false,
+          };
+        }
+
+        // Check stock availability
+        if (!bike.inStock) {
+          return {
+            message: `Product with ID ${item.productId} is out of stock`,
+            success: false,
+          };
+        }
+
+        if (bike.quantity < item.quantity) {
+          return {
+            message: `Quantity for product ID ${item.productId} not available`,
+            success: false,
+          };
+        }
+
+        // Calculate total price and update stock
+        totalPrice += bike.price * item.quantity;
+        bike.quantity -= item.quantity;
+        await bike.save();
+
+        updatedItems.push(item);
       }
-      // check if the quantity is available
-      if (bike.quantity < orderData.quantity) {
-        return {
-          message: 'Quantity not available',
-          success: false,
-        };
-      }
-      // calculate the total price
-      orderData.totalPrice = bike.price * orderData.quantity;
-      // create the order
-      const order = await OrderModel.create(orderData);
-      // update the bike quantity
-      bike.quantity -= orderData.quantity;
-      await bike.save();
+
+      // Create the Stripe Payment Intent
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: Math.round(totalPrice * 100), // Stripe expects the amount in cents
+        currency: 'usd',
+        payment_method_types: ['card'], // Only card for test mode
+      });
+      console.log(userId);
+      // Create the order
+      const orderData = {
+        user: userId,
+        items: updatedItems,
+        status: 'Pending',
+        totalPrice,
+      } as unknown as IOrder;
+
+      const order = await Order.create(orderData);
 
       return {
         message: 'Order created successfully',
         success: true,
-        data: order,
+        data: {
+          order,
+          clientSecret: paymentIntent.client_secret, // Return the client secret for client-side payment confirmation
+        },
+        totalPrice,
       };
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (e) {
+    } catch (e: any) {
       return {
-        message: 'An error occurred',
+        message: e.message || 'An error occurred while creating the order',
         success: false,
       };
     }

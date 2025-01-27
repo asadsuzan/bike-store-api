@@ -86,6 +86,7 @@ class BikeService {
 
   async getSpecificBike(id: string): Promise<IBikeDocument | null> {
     const bike = await BikeModel.findById(id);
+
     return bike;
   }
   /**
