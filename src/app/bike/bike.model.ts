@@ -3,7 +3,7 @@
 import { IBike, BikeCategory } from './bike.interface';
 
 // import core modules
-import mongoose, { Schema, Document, Model } from 'mongoose';
+import mongoose, { Schema, Document, Model, UpdateQuery } from 'mongoose';
 // Mongoose Document extending the IBike interface
 export interface IBikeDocument extends IBike, Document {}
 
@@ -72,6 +72,19 @@ BikeSchema.pre('save', function (next) {
 
   next();
 });
+
+// Pre-update hook to update the `inStock` property based on the `quantity`
+BikeSchema.pre('findOneAndUpdate', function (next) {
+  const update = this.getUpdate() as UpdateQuery<IBikeDocument>;
+
+  if (update.quantity !== undefined) {
+    // Set `inStock` based on the `quantity`
+    update.inStock = update.quantity > 0;
+  }
+
+  next();
+});
+
 // Create the bike model
 const BikeModel: Model<IBikeDocument> = mongoose.model<IBikeDocument>(
   'Bike',
