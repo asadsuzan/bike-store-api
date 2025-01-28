@@ -3,7 +3,7 @@ import mongoose, { Schema } from 'mongoose';
 import { IOrder } from './order.interface';
 
 // Order Schema
-const OrderSchema: Schema = new Schema(
+const OrderSchema: Schema<IOrder> = new Schema(
   {
     items: [
       {
@@ -11,9 +11,18 @@ const OrderSchema: Schema = new Schema(
         quantity: { type: Number, required: true },
       },
     ],
-    user: { type: String, required: true },
+    user: { type: Schema.Types.ObjectId, required: true },
     status: { type: String, default: 'Pending' },
     totalPrice: { type: Number, required: true },
+    transaction: {
+      id: String,
+      transactionStatus: String,
+      bank_status: String,
+      sp_code: String,
+      sp_message: String,
+      method: String,
+      date_time: String,
+    },
   },
   { timestamps: true },
 );

@@ -21,11 +21,15 @@ class OrderController {
       if (!items || items.length === 0) {
         res
           .status(400)
-          .json(errorResponse('Order must contain at least one item', null));
+          .json(errorResponse('Order must contain at least one item x', null));
         return;
       }
       // Call the service to create the order
-      const result = await orderService.createOrder(req.user?.userId, items);
+      const result = await orderService.createOrder(
+        req.user?._id,
+        items,
+        req.ip!,
+      );
       if (!result.success) {
         res.status(400).json(errorResponse(result.message, null));
         return;
@@ -42,6 +46,31 @@ class OrderController {
         error instanceof Error
           ? error.message
           : 'An error occurred while creating the order';
+      res.status(500).json(errorResponse(message, error));
+    }
+  }
+
+  // verify payment
+  async verifyPayment(req: ExtendedRequest, res: Response): Promise<void> {
+    try {
+      const { order_id } = req.query;
+
+      if (!order_id) {
+        res.status(400).json(errorResponse('Order id is required', null));
+        return;
+      }
+      const result = await orderService.verifyPayment(order_id as string);
+      if (!result.success) {
+        res.status(400).json(errorResponse(result.message, null));
+        return;
+      }
+      res.json(successResponse('Payment verified successfully', result));
+    } catch (error) {
+      // console.log(error);
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'An error occurred while verifying payment';
       res.status(500).json(errorResponse(message, error));
     }
   }

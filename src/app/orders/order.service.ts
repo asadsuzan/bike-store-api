@@ -1,16 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Stripe from 'stripe';
 
 import BikeService from '../bike/bike.service';
 import { IOrder } from './order.interface';
 import { Order } from './order.model';
-
-const stripe = new Stripe(
-  'sk_test_51O9qBfLMULfZjXPmsgXEVtLXf0iEktwIwAKmIScIh3mKLAlfBd0dEUDxZ6gKQ1qwsUwIZdXJXGlNOTJafuvW7XJ200Z7T5QOsm',
-  {
-    apiVersion: '2024-12-18.acacia',
-  },
-);
+import User from '../user/user.model';
+import { orderUtils } from './order.utils';
 
 class OrderService {
   /**
@@ -22,15 +16,9 @@ class OrderService {
   async createOrder(
     userId: string,
     items: { productId: string; quantity: number }[],
+    client_ip: string,
   ) {
     try {
-      if (!items || items.length === 0) {
-        return {
-          message: 'Order must contain at least one item.',
-          success: false,
-        };
-      }
-
       const updatedItems = [];
       let totalPrice = 0;
 
@@ -67,14 +55,6 @@ class OrderService {
 
         updatedItems.push(item);
       }
-
-      // Create the Stripe Payment Intent
-      const paymentIntent = await stripe.paymentIntents.create({
-        amount: Math.round(totalPrice * 100), // Stripe expects the amount in cents
-        currency: 'usd',
-        payment_method_types: ['card'], // Only card for test mode
-      });
-      console.log(userId);
       // Create the order
       const orderData = {
         user: userId,
@@ -83,20 +63,83 @@ class OrderService {
         totalPrice,
       } as unknown as IOrder;
 
-      const order = await Order.create(orderData);
+      let order = await Order.create(orderData);
+      const user = await User.findById(userId);
+      // payment integration
+      if (!user) {
+        return {
+          message: 'User not found',
+          success: false,
+        };
+      }
 
+      const shurjopayPayload = {
+        amount: totalPrice,
+        order_id: order._id,
+        currency: 'BDT',
+        customer_name: user.name,
+        customer_address: user.address,
+        customer_email: user.email,
+        customer_phone: user.phone,
+        customer_city: user.city,
+        client_ip,
+      };
+
+      const payment = await orderUtils.makePaymentAsync(shurjopayPayload);
+
+      if (payment?.transactionStatus) {
+        order = await order.updateOne({
+          transaction: {
+            id: payment.sp_order_id,
+            transactionStatus: payment.transactionStatus,
+          },
+        });
+      }
       return {
-        message: 'Order created successfully',
         success: true,
-        data: {
-          order,
-          clientSecret: paymentIntent.client_secret, // Return the client secret for client-side payment confirmation
-        },
-        totalPrice,
+        checkout_url: payment.checkout_url,
       };
     } catch (e: any) {
       return {
         message: e.message || 'An error occurred while creating the order',
+        success: false,
+      };
+    }
+  }
+
+  async verifyPayment(order_id: string) {
+    const verifiedPayment = await orderUtils.verifyPaymentAsync(order_id);
+
+    try {
+      if (verifiedPayment.length) {
+        await Order.findOneAndUpdate(
+          {
+            'transaction.id': order_id,
+          },
+          {
+            'transaction.bank_status': verifiedPayment[0].bank_status,
+            'transaction.sp_code': verifiedPayment[0].sp_code,
+            'transaction.sp_message': verifiedPayment[0].sp_message,
+            'transaction.transactionStatus':
+              verifiedPayment[0].transaction_status,
+            'transaction.method': verifiedPayment[0].method,
+            'transaction.date_time': verifiedPayment[0].date_time,
+            status:
+              verifiedPayment[0].bank_status == 'Success'
+                ? 'Paid'
+                : verifiedPayment[0].bank_status == 'Failed'
+                  ? 'Pending'
+                  : verifiedPayment[0].bank_status == 'Cancel'
+                    ? 'Cancelled'
+                    : '',
+          },
+        );
+      }
+
+      return { success: true, verifiedPayment };
+    } catch (err: any) {
+      return {
+        message: err.message || 'An error occurred while verifying the payment',
         success: false,
       };
     }

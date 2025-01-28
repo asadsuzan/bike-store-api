@@ -14,4 +14,11 @@ const router = express.Router();
 
 router.post('/orders', auth(UserRoles.customer), orderController.createOrder);
 
+/**
+ * verify payment
+ * @endpoint  /api/orders?order_id=1231424252
+ * @method: GET
+ */
+router.get('/orders', auth(UserRoles.customer), orderController.verifyPayment);
+
 export default router;

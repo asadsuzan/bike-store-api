@@ -2,13 +2,14 @@ import { Request, NextFunction, Response } from 'express';
 
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import config from '../../config';
+import User from '../user/user.model';
 
 export interface TRole {
   admin: 'admin';
   customer: 'customer';
 }
 interface ExtendedRequest extends Request {
-  user?: JwtPayload; // Make the user property optional
+  user?: (JwtPayload & { role: string }) | null; // Make the user property optional and include role
 }
 type TUserRole = keyof TRole;
 const auth = (...accessibleRoles: TUserRole[]) => {
@@ -31,6 +32,7 @@ const auth = (...accessibleRoles: TUserRole[]) => {
 
       try {
         decoded = jwt.verify(token, config.jwt_secret as string);
+
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
       } catch (error) {
         res
@@ -38,18 +40,21 @@ const auth = (...accessibleRoles: TUserRole[]) => {
           .send({ success: false, message: 'Unauthorized: Invalid token' });
         return;
       }
-
+      const user = await User.findOne({
+        _id: (decoded as JwtPayload).userId,
+      });
       // attach the user  to the request object
-      req.user = decoded as JwtPayload;
+      req.user = user;
 
       // check if the user has the required role
 
-      if (!accessibleRoles.includes(req.user.role)) {
+      if (!req.user || !accessibleRoles.includes(req.user.role as TUserRole)) {
         res
           .status(401)
           .send({ success: false, message: 'Unauthorized: Access Denied' });
         return;
       }
+      console.log(req.user);
 
       next();
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

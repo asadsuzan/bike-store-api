@@ -3,4 +3,7 @@ export interface TUser {
   email: string;
   password: string;
   role: 'admin' | 'customer';
+  phone?: string;
+  address?: string;
+  city?: string;
 }
