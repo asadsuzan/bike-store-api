@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-enco
 app.use(
   cors({
     origin: 'http://localhost:5173',
+    credentials: true, // Enable credentials for CORS
   }),
 ); // Enable Cross-Origin Resource Sharing
 app.use(helmet()); // Secure app by setting various HTTP headers

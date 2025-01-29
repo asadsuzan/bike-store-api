@@ -28,56 +28,58 @@ class BikeService {
    * @param filters - Query parameters for pagination, searching, and filtering
    * @returns Filtered and paginated bike documents
    */
+
   async getBikes(filters: {
     search?: string;
     page?: number;
     limit?: number;
-    [key: string]: any; // Additional filters like brand, category, etc.
+    [key: string]: any;
   }): Promise<{
     data: IBikeDocument[];
     total: number;
     currentPage: number;
     totalPages: number;
-  }> {
+    limit: number;
+  } | null> {
     const { search, page = 1, limit = 5, ...filterFields } = filters;
-
-    // Pagination calculation
     const skip = (page - 1) * limit;
-
-    // Base query for filtering
     const query: Record<string, any> = { isDeleted: false };
 
-    // Add search logic (e.g., search in name or description)
-    if (search) {
+    // Handle search query
+    if (search?.trim()) {
       query.$or = [
-        { name: { $regex: search, $options: 'i' } }, // Case-insensitive search
+        { name: { $regex: search, $options: 'i' } },
         { description: { $regex: search, $options: 'i' } },
       ];
     }
 
-    // Add other filters dynamically (e.g., brand, category, price range)
+    // Handle dynamic filters
     for (const field in filterFields) {
-      query[field] = filterFields[field];
+      if (field === 'price' && typeof filterFields[field] === 'object') {
+        query[field] = filterFields[field];
+      } else {
+        query[field] = filterFields[field];
+      }
     }
 
-    // Fetch filtered and paginated bikes
+    // Fetch paginated bikes
     const bikes = await BikeModel.find(query)
       .skip(skip)
       .limit(limit)
-      .sort({ createdAt: -1 }); // Sort by most recent by default
+      .sort({ createdAt: -1 });
 
-    // Count total documents matching the query
     const total = await BikeModel.countDocuments(query);
-
-    // Calculate total pages
     const totalPages = Math.ceil(total / limit);
+
     return {
       data: bikes,
       total,
       currentPage: page,
       totalPages,
+      limit,
     };
   }
+
   /**
    * Get a Specific Bike
    * @param id (ObjectId) - id to retrieves a specific bike

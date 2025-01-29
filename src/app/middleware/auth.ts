@@ -54,7 +54,6 @@ const auth = (...accessibleRoles: TUserRole[]) => {
           .send({ success: false, message: 'Unauthorized: Access Denied' });
         return;
       }
-      console.log(req.user);
 
       next();
       // eslint-disable-next-line @typescript-eslint/no-unused-vars

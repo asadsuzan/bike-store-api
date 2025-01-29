@@ -47,61 +47,32 @@ class BikeController {
   //  * @param res - express response object
   //  */
 
-  // async getBikes(req: Request, res: Response) {
-  //   try {
-  //     const { searchTerm } = req.query;
-
-  //     // Build the query dynamically
-  //     const query = searchTerm
-  //       ? {
-  //           $or: [
-  //             { name: { $regex: searchTerm, $options: 'i' } },
-  //             { brand: { $regex: searchTerm, $options: 'i' } },
-  //             { category: { $regex: searchTerm, $options: 'i' } },
-  //           ],
-  //         }
-  //       : {};
-  //     const bikes = await BikeService.getBikes(query);
-
-  //     res
-  //       .status(200)
-  //       .json(
-  //         successResponse(
-  //           searchTerm
-  //             ? `Bikes retrieved successfully for searchTerm: ${searchTerm}`
-  //             : "'Bikes retrieved successfully'",
-  //           bikes,
-  //         ),
-  //       );
-  //   } catch (error) {
-  //     res
-  //       .status(500)
-  //       .json(errorResponse('An error occurred while retrieving bikes', error));
-  //   }
-  // }
-
   async getBikes(req: Request, res: Response) {
     try {
       const { search, page, limit, brand, category, minPrice, maxPrice } =
         req.query;
 
-      // Build filters dynamically
-      const filters: any = { page: Number(page), limit: Number(limit), search };
+      const filters: any = {
+        page: Number(page) || 1,
+        limit: Number(limit) || 5,
+        search: search?.toString(),
+      };
 
       if (brand) filters.brand = brand;
       if (category) filters.category = category;
+
       if (minPrice || maxPrice) {
         filters.price = {};
-        if (minPrice) filters.price.$gte = Number(minPrice);
-        if (maxPrice) filters.price.$lte = Number(maxPrice);
+        if (!isNaN(Number(minPrice))) filters.price.$gte = Number(minPrice);
+        if (!isNaN(Number(maxPrice))) filters.price.$lte = Number(maxPrice);
       }
 
       const result = await BikeService.getBikes(filters);
 
       res.status(200).json(result);
-      return;
     } catch (error) {
-      res.status(500).json({ error: (error as any).message });
+      const message = (error as any).message || 'Internal server error';
+      res.status(500).json({ error: message });
     }
   }
 
