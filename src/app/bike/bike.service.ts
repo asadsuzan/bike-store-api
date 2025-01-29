@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import bike model modules
+import { TMeta } from './bike.interface';
 import BikeModel, { IBikeDocument } from './bike.model';
 
 class BikeService {
@@ -34,13 +35,7 @@ class BikeService {
     page?: number;
     limit?: number;
     [key: string]: any;
-  }): Promise<{
-    data: IBikeDocument[];
-    total: number;
-    currentPage: number;
-    totalPages: number;
-    limit: number;
-  } | null> {
+  }): Promise<TMeta | null> {
     const { search, page = 1, limit = 5, ...filterFields } = filters;
     const skip = (page - 1) * limit;
     const query: Record<string, any> = { isDeleted: false };
@@ -73,10 +68,12 @@ class BikeService {
 
     return {
       data: bikes,
-      total,
-      currentPage: page,
-      totalPages,
-      limit,
+      meta: {
+        total,
+        currentPage: page,
+        totalPages,
+        limit,
+      },
     };
   }
 

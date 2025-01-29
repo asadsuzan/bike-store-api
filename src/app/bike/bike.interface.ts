@@ -10,6 +10,8 @@ inStock (boolean): Indicates if the bike is in stock.
 
 */
 
+import { IBikeDocument } from './bike.model';
+
 // Enum for bike categories
 export enum BikeCategory {
   Mountain = 'Mountain',
@@ -28,4 +30,14 @@ export interface IBike {
   quantity: number;
   inStock: boolean;
   isDeleted: boolean;
+}
+
+export interface TMeta {
+  data: IBikeDocument[];
+  meta: {
+    total: number;
+    currentPage: number;
+    totalPages: number;
+    limit: number;
+  };
 }
