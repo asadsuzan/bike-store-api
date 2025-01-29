@@ -20,7 +20,7 @@ app.use(helmet()); // Secure app by setting various HTTP headers
 // use the bike route
 app.use('/api', bikeRoutes);
 // use the order route
-app.use('/api', orderRoutes);
+app.use('/api/order', orderRoutes);
 app.use('/api/user', userRoutes);
 
 // Health check endpoint

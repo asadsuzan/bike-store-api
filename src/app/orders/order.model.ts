@@ -12,7 +12,11 @@ const OrderSchema: Schema<IOrder> = new Schema(
       },
     ],
     user: { type: Schema.Types.ObjectId, required: true },
-    status: { type: String, default: 'Pending' },
+    status: {
+      type: String,
+      enum: ['Pending', 'Paid', 'Shipped', 'Completed', 'Cancelled'],
+      default: 'Pending',
+    },
     totalPrice: { type: Number, required: true },
     transaction: {
       id: String,

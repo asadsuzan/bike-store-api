@@ -74,6 +74,37 @@ class OrderController {
       res.status(500).json(errorResponse(message, error));
     }
   }
+
+  // get all orders
+  async getAllOrders(req: ExtendedRequest, res: Response) {
+    try {
+      const filters = {
+        status: req.query.status,
+        startDate: req.query.startDate,
+        endDate: req.query.endDate,
+        minPrice: req.query.minPrice,
+        maxPrice: req.query.maxPrice,
+      };
+
+      const result = await orderService.getAllOrders(
+        req.user?._id,
+        req.user?.role,
+        filters,
+      );
+      if (!result.success) {
+        res.status(400).json(errorResponse(result.message, null));
+        return;
+      }
+      res.json(successResponse('Orders retrieved successfully', result));
+    } catch (error) {
+      // console.log(error);
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'An error occurred while retrieving orders';
+      res.status(500).json(errorResponse(message, error));
+    }
+  }
 }
 
 export default new OrderController();

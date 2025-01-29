@@ -144,6 +144,46 @@ class OrderService {
       };
     }
   }
+
+  // get all orders
+  async getAllOrders(userId: string, role: string, filters: any) {
+    try {
+      let query =
+        role === 'admin' ? Order.find() : Order.find({ user: userId });
+
+      // Apply case-insensitive filtering for status
+      if (filters.status) {
+        query = query.where('status').regex(new RegExp(filters.status, 'i'));
+      }
+      if (filters.startDate && filters.endDate) {
+        query = query
+          .where('createdAt')
+          .gte(new Date(filters.startDate).getTime())
+          .lte(new Date(filters.endDate).getTime());
+      }
+
+      if (filters.minPrice && filters.maxPrice) {
+        query = query
+          .where('totalPrice')
+          .gte(filters.minPrice)
+          .lte(filters.maxPrice);
+      }
+
+      query = query.sort({ createdAt: -1 });
+
+      const orders = await query;
+
+      return {
+        success: true,
+        orders,
+      };
+    } catch (err: any) {
+      return {
+        message: err.message || 'An error occurred while getting orders',
+        success: false,
+      };
+    }
+  }
 }
 
 export default new OrderService();

@@ -12,13 +12,27 @@ const router = express.Router();
  * @method: POST
  */
 
-router.post('/orders', auth(UserRoles.customer), orderController.createOrder);
+router.post('/', auth(UserRoles.customer), orderController.createOrder);
 
 /**
  * verify payment
  * @endpoint  /api/orders?order_id=1231424252
  * @method: GET
  */
-router.get('/orders', auth(UserRoles.customer), orderController.verifyPayment);
+router.get(
+  '/verify-payment',
+  auth(UserRoles.customer),
+  orderController.verifyPayment,
+);
+/**
+ * get orders
+ * @endpoint  /api/order/orders
+ * @method: GET
+ */
+router.get(
+  '/orders',
+  auth(UserRoles.customer, UserRoles.admin),
+  orderController.getAllOrders,
+);
 
 export default router;
