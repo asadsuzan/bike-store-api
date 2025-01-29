@@ -14,7 +14,11 @@ const app: Application = express();
 // Global middlewares
 app.use(express.json()); // Middleware to parse incoming JSON requests
 app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded payloads
-app.use(cors()); // Enable Cross-Origin Resource Sharing
+app.use(
+  cors({
+    origin: 'http://localhost:5173',
+  }),
+); // Enable Cross-Origin Resource Sharing
 app.use(helmet()); // Secure app by setting various HTTP headers
 
 // use the bike route
