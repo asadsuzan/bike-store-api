@@ -1,0 +1,202 @@
+[
+  {
+    "name": "Mountain Bike X1",
+    "brand": "Trek",
+    "price": 899,
+    "category": "Mountain",
+    "description": "Durable mountain bike for off-road adventures.",
+    "quantity": 15,
+    "inStock": true,
+    "isDeleted": false
+  },
+  {
+    "name": "Road Bike Aero",
+    "brand": "Specialized",
+    "price": 1299,
+    "category": "Road",
+    "description": "Lightweight road bike for speed and performance.",
+    "quantity": 5,
+    "inStock": true,
+    "isDeleted": false
+  },
+  {
+    "name": "City Bike Commuter",
+    "brand": "Giant",
+    "price": 499,
+    "category": "City",
+    "description": "Comfortable city bike for daily commuting.",
+    "quantity": 20,
+    "inStock": true,
+    "isDeleted": false
+  },
+  {
+    "name": "BMX Bike Freestyle",
+    "brand": "Haro",
+    "price": 599,
+    "category": "BMX",
+    "description": "Sturdy BMX bike for tricks and stunts.",
+    "quantity": 10,
+    "inStock": true,
+    "isDeleted": false
+  },
+  {
+    "name": "Hybrid Bike Explorer",
+    "brand": "Cannondale",
+    "price": 749,
+    "category": "Hybrid",
+    "description": "Versatile hybrid bike for various terrains.",
+    "quantity": 8,
+    "inStock": true,
+    "isDeleted": false
+  },
+  {
+    "name": "Kids Bike Racer",
+    "brand": "Schwinn",
+    "price": 299,
+    "category": "Kids",
+    "description": "Fun and safe bike for kids.",
+    "quantity": 25,
+    "inStock": true,
+    "isDeleted": false
+  },
+  {
+    "name": "Electric Bike City",
+    "brand": "Gazelle",
+    "price": 1999,
+    "category": "Electric",
+    "description": "Electric bike for effortless city riding.",
+    "quantity": 3,
+    "inStock": true,
+    "isDeleted": false
+  },
+  {
+    "name": "Folding Bike Compact",
+    "brand": "Brompton",
+    "price": 1499,
+    "category": "Folding",
+    "description": "Compact folding bike for easy storage and transport.",
+    "quantity": 7,
+    "inStock": true,
+    "isDeleted": false
+  },
+  {
+    "name": "Tandem Bike Duo",
+    "brand": "Raleigh",
+    "price": 999,
+    "category": "Tandem",
+    "description": "Tandem bike for riding with a partner.",
+    "quantity": 2,
+    "inStock": true,
+    "isDeleted": false
+  },
+  {
+    "name": "Cruiser Bike Beach",
+    "brand": "Electra",
+    "price": 649,
+    "category": "Cruiser",
+    "description": "Relaxed cruiser bike for beach rides.",
+    "quantity": 12,
+    "inStock": true,
+    "isDeleted": false
+  },
+  {
+    "name": "Mountain Bike Trail",
+    "brand": "Santa Cruz",
+    "price": 2499,
+    "category": "Mountain",
+    "description": "High-performance mountain bike for challenging trails.",
+    "quantity": 4,
+    "inStock": true,
+    "isDeleted": false
+  },
+  {
+    "name": "Road Bike Endurance",
+    "brand": "Cervelo",
+    "price": 1799,
+    "category": "Road",
+    "description": "Comfortable road bike for long-distance rides.",
+    "quantity": 6,
+    "inStock": true,
+    "isDeleted": false
+  },
+  {
+    "name": "City Bike Classic",
+    "brand": "Batavus",
+    "price": 549,
+    "category": "City",
+    "description": "Stylish city bike with classic design.",
+    "quantity": 18,
+    "inStock": true,
+    "isDeleted": false
+  },
+  {
+    "name": "BMX Bike Race",
+    "brand": "Redline",
+    "price": 799,
+    "category": "BMX",
+    "description": "Lightweight BMX bike for racing.",
+    "quantity": 9,
+    "inStock": true,
+    "isDeleted": false
+  },
+  {
+    "name": "Hybrid Bike Fitness",
+    "brand": "Diamondback",
+    "price": 699,
+    "category": "Hybrid",
+    "description": "Hybrid bike for fitness and recreation.",
+    "quantity": 11,
+    "inStock": true,
+    "isDeleted": false
+  },
+  {
+    "name": "Kids Bike Mountain",
+    "brand": "Frog",
+    "price": 349,
+    "category": "Kids",
+    "description": "Durable mountain bike for kids.",
+    "quantity": 22,
+    "inStock": true,
+    "isDeleted": false
+  },
+  {
+    "name": "Electric Bike Cargo",
+    "brand": "Riese & Müller",
+    "price": 3999,
+    "category": "Electric",
+    "description": "Powerful electric cargo bike for carrying loads.",
+    "quantity": 1,
+    "inStock": true,
+    "isDeleted": false
+  },
+  {
+    "name": "Folding Bike Electric",
+    "brand": "GoCycle",
+    "price": 2999,
+    "category": "Folding",
+    "description": "Electric folding bike for convenient commuting.",
+    "quantity": 3,
+    "inStock": true,
+    "isDeleted": false
+  },
+  {
+    "name": "Tandem Bike Road",
+    "brand": "Santana",
+    "price": 1999,
+    "category": "Tandem",
+    "description": "High-performance tandem road bike.",
+    "quantity": 2,
+    "inStock": true,
+    "isDeleted": false
+  },
+  {
+    "name": "Cruiser Bike Comfort",
+    "brand": "Linus",
+    "price": 599,
+    "category": "Cruiser",
+    "description": "Comfortable cruiser bike for leisurely rides.",
+    "quantity": 14,
+    "inStock": true,
+    "isDeleted": false
+  }
+]

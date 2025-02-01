@@ -13,13 +13,26 @@ inStock (boolean): Indicates if the bike is in stock.
 import { IBikeDocument } from './bike.model';
 
 // Enum for bike categories
+// export enum BikeCategory {
+//   Mountain = 'Mountain',
+//   Road = 'Road',
+//   Hybrid = 'Hybrid',
+//   Electric = 'Electric',
+// }
+
+// Define the BikeCategory enum
 export enum BikeCategory {
   Mountain = 'Mountain',
   Road = 'Road',
+  City = 'City',
+  BMX = 'BMX',
   Hybrid = 'Hybrid',
+  Kids = 'Kids',
   Electric = 'Electric',
+  Folding = 'Folding',
+  Tandem = 'Tandem',
+  Cruiser = 'Cruiser',
 }
-
 // Interface for the Bike model
 export interface IBike {
   name: string;
