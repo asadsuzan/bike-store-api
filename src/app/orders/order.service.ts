@@ -30,6 +30,8 @@ class OrderService {
           return {
             message: `Product with ID ${item.productId} not found`,
             success: false,
+            status: 'NOT-Found',
+            item: item.productId,
           };
         }
 
@@ -38,6 +40,9 @@ class OrderService {
           return {
             message: `Product with ID ${item.productId} is out of stock`,
             success: false,
+            status: 'STOCK-OUT',
+            item: item.productId,
+            availableQuantity: bike.quantity,
           };
         }
 
@@ -45,6 +50,9 @@ class OrderService {
           return {
             message: `Quantity for product ID ${item.productId} not available`,
             success: false,
+            status: 'INSUFFICIENT-QUANTITY',
+            item: item.productId,
+            availableQuantity: bike.quantity,
           };
         }
 

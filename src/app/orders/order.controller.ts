@@ -30,8 +30,9 @@ class OrderController {
         items,
         req.ip!,
       );
+
       if (!result.success) {
-        res.status(400).json(errorResponse(result.message, null));
+        res.status(400).json(result);
         return;
       }
       // Respond with the created order
@@ -41,7 +42,6 @@ class OrderController {
         .json(successResponse('Order created successfully', result));
       return;
     } catch (error) {
-      // console.log(error);
       const message =
         error instanceof Error
           ? error.message
