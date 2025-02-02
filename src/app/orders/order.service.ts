@@ -267,6 +267,46 @@ class OrderService {
       };
     }
   }
+  /**
+   * Delete an order based on user role
+   * @param orderId - ID of the order to delete
+   * @param userId - ID of the user attempting to delete the order
+   * @param role - Role of the user ("admin" or "user")
+   * @returns - Success or error message
+   */
+  async deleteOrder(orderId: string, userId: string, role: string) {
+    try {
+      let order;
+
+      if (role === 'admin') {
+        // Admin can delete any order
+        order = await Order.findByIdAndDelete(orderId);
+      } else {
+        // Regular user can only delete their own order
+        order = await Order.findOneAndDelete({ _id: orderId, user: userId });
+      }
+
+      if (!order) {
+        return {
+          success: false,
+          message:
+            role === 'admin'
+              ? 'Order not found.'
+              : 'Order not found or you do not have permission to delete it.',
+        };
+      }
+
+      return {
+        success: true,
+        message: 'Order deleted successfully.',
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.message || 'An error occurred while deleting the order.',
+      };
+    }
+  }
 }
 
 export default new OrderService();

@@ -127,6 +127,35 @@ class OrderController {
       res.status(500).json(errorResponse(message, error));
     }
   }
+
+  // delete oder
+  async deleteOrder(req: ExtendedRequest, res: Response) {
+    try {
+      const { orderId } = req.params;
+
+      if (!orderId) {
+        res.status(400).json(errorResponse('Order id is required', null));
+        return;
+      }
+      const result = await orderService.deleteOrder(
+        orderId,
+        req.user?._id,
+        req.user?.role,
+      );
+      if (!result.success) {
+        res.status(400).json(errorResponse(result.message, null));
+        return;
+      }
+      res.json(successResponse('Order deleted successfully', result));
+    } catch (error) {
+      // console.log(error);
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'An error occurred while deleting the order';
+      res.status(500).json(errorResponse(message, error));
+    }
+  }
 }
 
 export default new OrderController();
