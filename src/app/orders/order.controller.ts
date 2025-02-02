@@ -105,6 +105,28 @@ class OrderController {
       res.status(500).json(errorResponse(message, error));
     }
   }
+
+  // get summary
+  async getOderSummary(req: ExtendedRequest, res: Response) {
+    try {
+      const result = await orderService.getOrderSummary(
+        req.user?._id,
+        req.user?.role,
+      );
+      if (!result.success) {
+        res.status(400).json(errorResponse(result.message as string, null));
+        return;
+      }
+      res.json(successResponse('Order summary retrieved successfully', result));
+    } catch (error) {
+      // console.log(error);
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'An error occurred while retrieving order summary';
+      res.status(500).json(errorResponse(message, error));
+    }
+  }
 }
 
 export default new OrderController();

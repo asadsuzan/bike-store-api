@@ -34,5 +34,15 @@ router.get(
   auth(UserRoles.customer, UserRoles.admin),
   orderController.getAllOrders,
 );
+/**
+ * get orders summary
+ * @endpoint  /api/order/get-summary
+ * @method: GET
+ */
+router.get(
+  '/summary',
+  auth(UserRoles.customer, UserRoles.admin),
+  orderController.getOderSummary,
+);
 
 export default router;

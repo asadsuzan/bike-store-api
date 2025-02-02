@@ -179,7 +179,12 @@ class OrderService {
 
       query = query.sort({ createdAt: -1 });
 
-      const orders = await query;
+      const orders = await query
+        .populate({
+          path: 'items.productId', // Proper way to target productId in nested array
+          model: 'Bike',
+        })
+        .exec();
 
       return {
         success: true,
@@ -189,6 +194,76 @@ class OrderService {
       return {
         message: err.message || 'An error occurred while getting orders',
         success: false,
+      };
+    }
+  }
+  // get summary
+  async getOrderSummary(userId: string, role: string) {
+    try {
+      const matchCondition = role === 'admin' ? {} : { user: userId };
+
+      const summary = await Order.aggregate([
+        { $match: matchCondition },
+        {
+          $group: {
+            _id: '$status',
+            count: { $sum: 1 },
+          },
+        },
+        {
+          $facet: {
+            statusCounts: [
+              {
+                $group: {
+                  _id: '$_id',
+                  count: { $sum: '$count' },
+                },
+              },
+            ],
+            totalOrders: [
+              {
+                $group: {
+                  _id: null,
+                  total: { $sum: '$count' },
+                },
+              },
+            ],
+          },
+        },
+      ]);
+
+      const statusCounts = summary[0]?.statusCounts || [];
+      const totalOrders = summary[0]?.totalOrders[0]?.total || 0;
+
+      return {
+        success: true,
+        summary: {
+          allOrders: totalOrders,
+          pending:
+            statusCounts.find((item: { _id: string }) => item._id === 'Pending')
+              ?.count || 0,
+          paid:
+            statusCounts.find((item: { _id: string }) => item._id === 'Paid')
+              ?.count || 0,
+          shipped:
+            statusCounts.find((item: { _id: string }) => item._id === 'Shipped')
+              ?.count || 0,
+          completed:
+            statusCounts.find(
+              (item: { _id: string }) => item._id === 'Completed',
+            )?.count || 0,
+          cancelled:
+            statusCounts.find(
+              (item: { _id: string }) => item._id === 'Cancelled',
+            )?.count || 0,
+        },
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message:
+          (error as Error).message ||
+          'An error occurred while retrieving order summary.',
       };
     }
   }
