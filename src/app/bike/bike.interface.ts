@@ -12,35 +12,36 @@ inStock (boolean): Indicates if the bike is in stock.
 
 import { IBikeDocument } from './bike.model';
 
-// Enum for bike categories
-// export enum BikeCategory {
-//   Mountain = 'Mountain',
-//   Road = 'Road',
-//   Hybrid = 'Hybrid',
-//   Electric = 'Electric',
-// }
-
-// Define the BikeCategory enum
 export enum BikeCategory {
-  Mountain = 'Mountain',
-  Road = 'Road',
-  City = 'City',
-  BMX = 'BMX',
-  Hybrid = 'Hybrid',
-  Kids = 'Kids',
-  Electric = 'Electric',
-  Folding = 'Folding',
-  Tandem = 'Tandem',
-  Cruiser = 'Cruiser',
+  Robotic = 'Robotic',
+  Manual = 'Manual',
+  Reflectorless = 'Reflectorless',
+  Construction = 'Construction',
+  Specialized = 'Specialized',
+}
+
+// Brand Enum
+export enum BikeBrand {
+  LeicaGeosystems = 'Leica Geosystems',
+  Trimble = 'Trimble',
+  Topcon = 'Topcon',
+  Sokkia = 'Sokkia',
+  Nikon = 'Nikon',
+  Pentax = 'Pentax',
+  SouthSurveying = 'South Surveying & Mapping Technology',
+  Stonex = 'Stonex',
+  Ruide = 'Ruide',
+  HiTarget = 'Hi-Target',
 }
 // Interface for the Bike model
 export interface IBike {
   name: string;
-  brand: string;
+  brand: BikeBrand;
   price: number;
   category: BikeCategory;
   description: string;
   quantity: number;
+  image: string;
   inStock: boolean;
   isDeleted: boolean;
 }

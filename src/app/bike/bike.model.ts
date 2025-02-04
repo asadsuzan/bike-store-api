@@ -1,6 +1,6 @@
 // import Bike interface modules
 
-import { IBike, BikeCategory } from './bike.interface';
+import { IBike, BikeCategory, BikeBrand } from './bike.interface';
 
 // import core modules
 import mongoose, { Schema, Document, Model, UpdateQuery } from 'mongoose';
@@ -18,7 +18,7 @@ const BikeSchema: Schema<IBikeDocument> = new Schema<IBikeDocument>(
     brand: {
       type: String,
       required: true,
-      trim: true,
+      enum: Object.values(BikeBrand),
     },
     price: {
       type: Number,
@@ -43,6 +43,13 @@ const BikeSchema: Schema<IBikeDocument> = new Schema<IBikeDocument>(
     inStock: {
       type: Boolean,
       default: false,
+    },
+    image: {
+      type: String,
+      trim: true,
+      default: function () {
+        return `https://placehold.co/600x400?text=${this.name}`;
+      },
     },
     isDeleted: {
       type: Boolean,
