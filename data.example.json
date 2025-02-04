@@ -1,202 +1,162 @@
 [
   {
-    "name": "Mountain Bike X1",
-    "brand": "Trek",
-    "price": 899,
-    "category": "Mountain",
-    "description": "Durable mountain bike for off-road adventures.",
-    "quantity": 15,
-    "inStock": true,
-    "isDeleted": false
+    "name": "Leica TS16 Robotic Station",
+    "brand": "Leica Geosystems",
+    "price": 12000,
+    "category": "Robotic",
+    "description": "High-precision robotic total station ideal for construction sites.",
+    "quantity": 5
   },
   {
-    "name": "Road Bike Aero",
-    "brand": "Specialized",
-    "price": 1299,
-    "category": "Road",
-    "description": "Lightweight road bike for speed and performance.",
-    "quantity": 5,
-    "inStock": true,
-    "isDeleted": false
+    "name": "Trimble S7 Reflectorless Station",
+    "brand": "Trimble",
+    "price": 14000,
+    "category": "Reflectorless",
+    "description": "Advanced reflectorless total station with real-time imaging.",
+    "quantity": 3
   },
   {
-    "name": "City Bike Commuter",
-    "brand": "Giant",
-    "price": 499,
-    "category": "City",
-    "description": "Comfortable city bike for daily commuting.",
-    "quantity": 20,
-    "inStock": true,
-    "isDeleted": false
+    "name": "Topcon GT-1200 Manual Station",
+    "brand": "Topcon",
+    "price": 11500,
+    "category": "Manual",
+    "description": "High-accuracy manual total station designed for precise surveying.",
+    "quantity": 2
   },
   {
-    "name": "BMX Bike Freestyle",
-    "brand": "Haro",
-    "price": 599,
-    "category": "BMX",
-    "description": "Sturdy BMX bike for tricks and stunts.",
-    "quantity": 10,
-    "inStock": true,
-    "isDeleted": false
+    "name": "Sokkia CX-65 Reflectorless Station",
+    "brand": "Sokkia",
+    "price": 13000,
+    "category": "Reflectorless",
+    "description": "Affordable reflectorless total station with advanced features.",
+    "quantity": 6
   },
   {
-    "name": "Hybrid Bike Explorer",
-    "brand": "Cannondale",
-    "price": 749,
-    "category": "Hybrid",
-    "description": "Versatile hybrid bike for various terrains.",
-    "quantity": 8,
-    "inStock": true,
-    "isDeleted": false
+    "name": "Nikon NPL-322 Construction Station",
+    "brand": "Nikon",
+    "price": 11000,
+    "category": "Construction",
+    "description": "Durable and precise total station for construction sites.",
+    "quantity": 4
   },
   {
-    "name": "Kids Bike Racer",
-    "brand": "Schwinn",
-    "price": 299,
-    "category": "Kids",
-    "description": "Fun and safe bike for kids.",
-    "quantity": 25,
-    "inStock": true,
-    "isDeleted": false
+    "name": "Pentax R-2500 Manual Station",
+    "brand": "Pentax",
+    "price": 9500,
+    "category": "Manual",
+    "description": "Compact and lightweight manual total station for fieldwork.",
+    "quantity": 7
   },
   {
-    "name": "Electric Bike City",
-    "brand": "Gazelle",
-    "price": 1999,
-    "category": "Electric",
-    "description": "Electric bike for effortless city riding.",
-    "quantity": 3,
-    "inStock": true,
-    "isDeleted": false
+    "name": "South NTS-350R Reflectorless Station",
+    "brand": "South Surveying & Mapping Technology",
+    "price": 10500,
+    "category": "Reflectorless",
+    "description": "Reliable total station with advanced reflectorless capabilities.",
+    "quantity": 8
   },
   {
-    "name": "Folding Bike Compact",
-    "brand": "Brompton",
-    "price": 1499,
-    "category": "Folding",
-    "description": "Compact folding bike for easy storage and transport.",
-    "quantity": 7,
-    "inStock": true,
-    "isDeleted": false
+    "name": "Stonex S900 Specialized Station",
+    "brand": "Stonex",
+    "price": 15000,
+    "category": "Specialized",
+    "description": "Highly specialized total station for complex surveying tasks.",
+    "quantity": 3
   },
   {
-    "name": "Tandem Bike Duo",
-    "brand": "Raleigh",
-    "price": 999,
-    "category": "Tandem",
-    "description": "Tandem bike for riding with a partner.",
-    "quantity": 2,
-    "inStock": true,
-    "isDeleted": false
+    "name": "Ruide RTS-822 Manual Station",
+    "brand": "Ruide",
+    "price": 9500,
+    "category": "Manual",
+    "description": "Cost-effective manual total station for entry-level surveying.",
+    "quantity": 10
   },
   {
-    "name": "Cruiser Bike Beach",
-    "brand": "Electra",
-    "price": 649,
-    "category": "Cruiser",
-    "description": "Relaxed cruiser bike for beach rides.",
-    "quantity": 12,
-    "inStock": true,
-    "isDeleted": false
+    "name": "Hi-Target HTS-420R Reflectorless Station",
+    "brand": "Hi-Target",
+    "price": 12000,
+    "category": "Reflectorless",
+    "description": "High-performance reflectorless total station with advanced features.",
+    "quantity": 4
   },
   {
-    "name": "Mountain Bike Trail",
-    "brand": "Santa Cruz",
-    "price": 2499,
-    "category": "Mountain",
-    "description": "High-performance mountain bike for challenging trails.",
-    "quantity": 4,
-    "inStock": true,
-    "isDeleted": false
+    "name": "Leica TS60 Robotic Total Station",
+    "brand": "Leica Geosystems",
+    "price": 16000,
+    "category": "Robotic",
+    "description": "Top-of-the-line robotic total station for survey professionals.",
+    "quantity": 6
   },
   {
-    "name": "Road Bike Endurance",
-    "brand": "Cervelo",
-    "price": 1799,
-    "category": "Road",
-    "description": "Comfortable road bike for long-distance rides.",
-    "quantity": 6,
-    "inStock": true,
-    "isDeleted": false
+    "name": "Trimble R12i GNSS Receiver",
+    "brand": "Trimble",
+    "price": 20000,
+    "category": "Specialized",
+    "description": "High-precision GNSS receiver for challenging environments.",
+    "quantity": 3
   },
   {
-    "name": "City Bike Classic",
-    "brand": "Batavus",
-    "price": 549,
-    "category": "City",
-    "description": "Stylish city bike with classic design.",
-    "quantity": 18,
-    "inStock": true,
-    "isDeleted": false
+    "name": "Topcon OS Series Total Station",
+    "brand": "Topcon",
+    "price": 13000,
+    "category": "Manual",
+    "description": "Versatile and precise total station for a variety of applications.",
+    "quantity": 5
   },
   {
-    "name": "BMX Bike Race",
-    "brand": "Redline",
-    "price": 799,
-    "category": "BMX",
-    "description": "Lightweight BMX bike for racing.",
-    "quantity": 9,
-    "inStock": true,
-    "isDeleted": false
+    "name": "Sokkia iX-502 Robotic Total Station",
+    "brand": "Sokkia",
+    "price": 14500,
+    "category": "Robotic",
+    "description": "Efficient and powerful robotic total station for survey work.",
+    "quantity": 4
   },
   {
-    "name": "Hybrid Bike Fitness",
-    "brand": "Diamondback",
-    "price": 699,
-    "category": "Hybrid",
-    "description": "Hybrid bike for fitness and recreation.",
-    "quantity": 11,
-    "inStock": true,
-    "isDeleted": false
+    "name": "Nikon XF Series Total Station",
+    "brand": "Nikon",
+    "price": 12500,
+    "category": "Construction",
+    "description": "Advanced construction-focused total station with superior optics.",
+    "quantity": 7
   },
   {
-    "name": "Kids Bike Mountain",
-    "brand": "Frog",
-    "price": 349,
-    "category": "Kids",
-    "description": "Durable mountain bike for kids.",
-    "quantity": 22,
-    "inStock": true,
-    "isDeleted": false
+    "name": "Pentax W-1500N Total Station",
+    "brand": "Pentax",
+    "price": 9000,
+    "category": "Manual",
+    "description": "Durable and lightweight total station for field operations.",
+    "quantity": 5
   },
   {
-    "name": "Electric Bike Cargo",
-    "brand": "Riese & Müller",
-    "price": 3999,
-    "category": "Electric",
-    "description": "Powerful electric cargo bike for carrying loads.",
-    "quantity": 1,
-    "inStock": true,
-    "isDeleted": false
+    "name": "South Galaxy G1 GNSS Receiver",
+    "brand": "South Surveying & Mapping Technology",
+    "price": 15500,
+    "category": "Specialized",
+    "description": "High-performance GNSS receiver for precise geospatial data.",
+    "quantity": 2
   },
   {
-    "name": "Folding Bike Electric",
-    "brand": "GoCycle",
-    "price": 2999,
-    "category": "Folding",
-    "description": "Electric folding bike for convenient commuting.",
-    "quantity": 3,
-    "inStock": true,
-    "isDeleted": false
+    "name": "Stonex R2W Plus Total Station",
+    "brand": "Stonex",
+    "price": 14500,
+    "category": "Manual",
+    "description": "Reliable total station with advanced reflectorless technology.",
+    "quantity": 3
   },
   {
-    "name": "Tandem Bike Road",
-    "brand": "Santana",
-    "price": 1999,
-    "category": "Tandem",
-    "description": "High-performance tandem road bike.",
-    "quantity": 2,
-    "inStock": true,
-    "isDeleted": false
+    "name": "Ruide R2 Pro Total Station",
+    "brand": "Ruide",
+    "price": 8900,
+    "category": "Manual",
+    "description": "Affordable and efficient total station for surveying needs.",
+    "quantity": 9
   },
   {
-    "name": "Cruiser Bike Comfort",
-    "brand": "Linus",
-    "price": 599,
-    "category": "Cruiser",
-    "description": "Comfortable cruiser bike for leisurely rides.",
-    "quantity": 14,
-    "inStock": true,
-    "isDeleted": false
+    "name": "Hi-Target V100 GNSS Receiver",
+    "brand": "Hi-Target",
+    "price": 14000,
+    "category": "Specialized",
+    "description": "High-accuracy GNSS receiver for various survey tasks.",
+    "quantity": 3
   }
 ]
