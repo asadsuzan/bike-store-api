@@ -52,6 +52,8 @@ class BikeService {
     for (const field in filterFields) {
       if (field === 'price' && typeof filterFields[field] === 'object') {
         query[field] = filterFields[field];
+      } else if (field === 'category') {
+        query[field] = { $in: filterFields[field] };
       } else {
         query[field] = filterFields[field];
       }
