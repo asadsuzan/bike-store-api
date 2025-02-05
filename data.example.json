@@ -1,162 +1,112 @@
 [
   {
-    "name": "Leica TS16 Robotic Station",
+    "name": "Model X1",
     "brand": "Leica Geosystems",
-    "price": 12000,
+    "price": 1999.99,
     "category": "Robotic",
-    "description": "High-precision robotic total station ideal for construction sites.",
-    "quantity": 5
+    "description": "High precision robotic bike for advanced surveying.",
+    "quantity": 5,
+    "image": "https://placehold.co/600x400?text=Model%20X1",
+    "inStock": true,
+    "isDeleted": false
   },
   {
-    "name": "Trimble S7 Reflectorless Station",
+    "name": "Trail Blazer",
     "brand": "Trimble",
-    "price": 14000,
-    "category": "Reflectorless",
-    "description": "Advanced reflectorless total station with real-time imaging.",
-    "quantity": 3
+    "price": 1499.5,
+    "category": "Manual",
+    "description": "Reliable manual bike suitable for rugged trails.",
+    "quantity": 3,
+    "image": "https://placehold.co/600x400?text=Trail%20Blazer",
+    "inStock": true,
+    "isDeleted": false
   },
   {
-    "name": "Topcon GT-1200 Manual Station",
+    "name": "Speed Racer",
     "brand": "Topcon",
-    "price": 11500,
-    "category": "Manual",
-    "description": "High-accuracy manual total station designed for precise surveying.",
-    "quantity": 2
+    "price": 2299.0,
+    "category": "Reflectorless",
+    "description": "Top-performance bike with advanced reflectorless features.",
+    "quantity": 8,
+    "image": "https://placehold.co/600x400?text=Speed%20Racer",
+    "inStock": true,
+    "isDeleted": false
   },
   {
-    "name": "Sokkia CX-65 Reflectorless Station",
+    "name": "Construction Master",
     "brand": "Sokkia",
-    "price": 13000,
-    "category": "Reflectorless",
-    "description": "Affordable reflectorless total station with advanced features.",
-    "quantity": 6
-  },
-  {
-    "name": "Nikon NPL-322 Construction Station",
-    "brand": "Nikon",
-    "price": 11000,
+    "price": 2899.0,
     "category": "Construction",
-    "description": "Durable and precise total station for construction sites.",
-    "quantity": 4
+    "description": "Sturdy and reliable construction-focused bike.",
+    "quantity": 2,
+    "image": "https://placehold.co/600x400?text=Construction%20Master",
+    "inStock": true,
+    "isDeleted": false
   },
   {
-    "name": "Pentax R-2500 Manual Station",
-    "brand": "Pentax",
-    "price": 9500,
-    "category": "Manual",
-    "description": "Compact and lightweight manual total station for fieldwork.",
-    "quantity": 7
-  },
-  {
-    "name": "South NTS-350R Reflectorless Station",
-    "brand": "South Surveying & Mapping Technology",
-    "price": 10500,
-    "category": "Reflectorless",
-    "description": "Reliable total station with advanced reflectorless capabilities.",
-    "quantity": 8
-  },
-  {
-    "name": "Stonex S900 Specialized Station",
-    "brand": "Stonex",
-    "price": 15000,
-    "category": "Specialized",
-    "description": "Highly specialized total station for complex surveying tasks.",
-    "quantity": 3
-  },
-  {
-    "name": "Ruide RTS-822 Manual Station",
-    "brand": "Ruide",
-    "price": 9500,
-    "category": "Manual",
-    "description": "Cost-effective manual total station for entry-level surveying.",
-    "quantity": 10
-  },
-  {
-    "name": "Hi-Target HTS-420R Reflectorless Station",
-    "brand": "Hi-Target",
-    "price": 12000,
-    "category": "Reflectorless",
-    "description": "High-performance reflectorless total station with advanced features.",
-    "quantity": 4
-  },
-  {
-    "name": "Leica TS60 Robotic Total Station",
-    "brand": "Leica Geosystems",
-    "price": 16000,
-    "category": "Robotic",
-    "description": "Top-of-the-line robotic total station for survey professionals.",
-    "quantity": 6
-  },
-  {
-    "name": "Trimble R12i GNSS Receiver",
-    "brand": "Trimble",
-    "price": 20000,
-    "category": "Specialized",
-    "description": "High-precision GNSS receiver for challenging environments.",
-    "quantity": 3
-  },
-  {
-    "name": "Topcon OS Series Total Station",
-    "brand": "Topcon",
-    "price": 13000,
-    "category": "Manual",
-    "description": "Versatile and precise total station for a variety of applications.",
-    "quantity": 5
-  },
-  {
-    "name": "Sokkia iX-502 Robotic Total Station",
-    "brand": "Sokkia",
-    "price": 14500,
-    "category": "Robotic",
-    "description": "Efficient and powerful robotic total station for survey work.",
-    "quantity": 4
-  },
-  {
-    "name": "Nikon XF Series Total Station",
+    "name": "Specialist 500",
     "brand": "Nikon",
-    "price": 12500,
-    "category": "Construction",
-    "description": "Advanced construction-focused total station with superior optics.",
-    "quantity": 7
+    "price": 1799.99,
+    "category": "Specialized",
+    "description": "Specialized bike for professional tasks.",
+    "quantity": 0,
+    "image": "https://placehold.co/600x400?text=Specialist%20500",
+    "inStock": false,
+    "isDeleted": false
   },
   {
-    "name": "Pentax W-1500N Total Station",
+    "name": "Explorer Pro",
     "brand": "Pentax",
-    "price": 9000,
-    "category": "Manual",
-    "description": "Durable and lightweight total station for field operations.",
-    "quantity": 5
+    "price": 2500.0,
+    "category": "Robotic",
+    "description": "Advanced robotic bike for exploration.",
+    "quantity": 6,
+    "image": "https://placehold.co/600x400?text=Explorer%20Pro",
+    "inStock": true,
+    "isDeleted": false
   },
   {
-    "name": "South Galaxy G1 GNSS Receiver",
-    "brand": "South Surveying & Mapping Technology",
-    "price": 15500,
-    "category": "Specialized",
-    "description": "High-performance GNSS receiver for precise geospatial data.",
-    "quantity": 2
+    "name": "Survey King",
+    "brand": "South Surveying",
+    "price": 3199.99,
+    "category": "Reflectorless",
+    "description": "High-performance reflectorless surveying bike.",
+    "quantity": 7,
+    "image": "https://placehold.co/600x400?text=Survey%20King",
+    "inStock": true,
+    "isDeleted": false
   },
   {
-    "name": "Stonex R2W Plus Total Station",
+    "name": "Precision Ace",
     "brand": "Stonex",
-    "price": 14500,
+    "price": 2700.75,
     "category": "Manual",
-    "description": "Reliable total station with advanced reflectorless technology.",
-    "quantity": 3
+    "description": "Highly accurate manual bike.",
+    "quantity": 4,
+    "image": "https://placehold.co/600x400?text=Precision%20Ace",
+    "inStock": true,
+    "isDeleted": false
   },
   {
-    "name": "Ruide R2 Pro Total Station",
+    "name": "Ruide Runner",
     "brand": "Ruide",
-    "price": 8900,
-    "category": "Manual",
-    "description": "Affordable and efficient total station for surveying needs.",
-    "quantity": 9
+    "price": 2099.0,
+    "category": "Construction",
+    "description": "Durable bike for tough construction tasks.",
+    "quantity": 1,
+    "image": "https://placehold.co/600x400?text=Ruide%20Runner",
+    "inStock": true,
+    "isDeleted": false
   },
   {
-    "name": "Hi-Target V100 GNSS Receiver",
+    "name": "Target Tracker",
     "brand": "Hi-Target",
-    "price": 14000,
+    "price": 2999.5,
     "category": "Specialized",
-    "description": "High-accuracy GNSS receiver for various survey tasks.",
-    "quantity": 3
+    "description": "Premium specialized bike for target tracking.",
+    "quantity": 0,
+    "image": "https://placehold.co/600x400?text=Target%20Tracker",
+    "inStock": false,
+    "isDeleted": false
   }
 ]
