@@ -180,6 +180,54 @@ class OrderController {
       res.status(500).json(errorResponse(message, error));
     }
   }
+
+  // get sells overview
+  async getSellsOverview(req: ExtendedRequest, res: Response) {
+    try {
+      const result = await orderService.getSalesOverview(
+        req.user?._id,
+        req.user?.role,
+      );
+      if (!result.success) {
+        res.status(400).json(errorResponse(result.message as string, null));
+        return;
+      }
+      res.json(
+        successResponse('Sells overview retrieved successfully', result),
+      );
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'An error occurred while retrieving sells overview';
+      res.status(500).json(errorResponse(message, error));
+    }
+  }
+
+  // recent orders
+  async getRecentOrders(req: ExtendedRequest, res: Response) {
+    try {
+      const result = await orderService.getRecentOrders(
+        req.user?._id,
+        req.user?.role,
+      );
+      if (!result.success) {
+        res.status(400).json(errorResponse(result.message as string, null));
+        return;
+      }
+      res.json(successResponse('Recent orders retrieved successfully', result));
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'An error occurred while retrieving recent orders';
+      res.status(500).json(errorResponse(message, error));
+    }
+  }
 }
 
 export default new OrderController();

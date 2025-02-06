@@ -299,6 +299,79 @@ class OrderService {
       };
     }
   }
+
+  // get sells overview
+  async getSalesOverview(userId: string, role: string) {
+    try {
+      const matchCondition = role === 'admin' ? {} : { user: userId };
+
+      // Aggregate orders to get total sales per month
+      const salesData = await Order.aggregate([
+        { $match: matchCondition },
+        {
+          $project: {
+            year: { $year: '$createdAt' },
+            month: { $month: '$createdAt' },
+            totalPrice: 1,
+          },
+        },
+        {
+          $group: {
+            _id: { year: '$year', month: '$month' },
+            totalSales: { $sum: '$totalPrice' },
+          },
+        },
+        {
+          $sort: { '_id.year': 1, '_id.month': 1 },
+        },
+      ]);
+
+      // Format the sales data
+      const formattedSalesData = salesData.map((entry: any) => ({
+        month: new Date(entry._id.year, entry._id.month - 1).toLocaleString(
+          'default',
+          { month: 'short' },
+        ),
+        sales: entry.totalSales,
+      }));
+
+      // Ensure that all months are included, even if no sales data exists for some months
+      const allMonths = [
+        { month: 'Jan', sales: 0 },
+        { month: 'Feb', sales: 0 },
+        { month: 'Mar', sales: 0 },
+        { month: 'Apr', sales: 0 },
+        { month: 'May', sales: 0 },
+        { month: 'Jun', sales: 0 },
+        { month: 'Jul', sales: 0 },
+        { month: 'Aug', sales: 0 },
+        { month: 'Sep', sales: 0 },
+        { month: 'Oct', sales: 0 },
+        { month: 'Nov', sales: 0 },
+        { month: 'Dec', sales: 0 },
+      ];
+
+      formattedSalesData.forEach((entry: any) => {
+        const monthIndex = allMonths.findIndex(
+          (month) => month.month === entry.month,
+        );
+        if (monthIndex !== -1) {
+          allMonths[monthIndex].sales = entry.sales;
+        }
+      });
+
+      return {
+        success: true,
+        salesOverview: allMonths,
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        message:
+          error.message || 'An error occurred while retrieving sales overview.',
+      };
+    }
+  }
   /**
    * Delete an order based on user role
    * @param orderId - ID of the order to delete
@@ -336,6 +409,36 @@ class OrderService {
       return {
         success: false,
         message: error.message || 'An error occurred while deleting the order.',
+      };
+    }
+  }
+
+  async getRecentOrders(userId: string, role: string) {
+    try {
+      // Determine the query condition based on user role
+      const queryCondition = role === 'admin' ? {} : { user: userId };
+
+      // Query the database for the 5 most recent orders
+      const recentOrders = await Order.find(queryCondition)
+        .sort({ createdAt: -1 })
+        .limit(3)
+        .populate({
+          path: 'items.productId',
+          model: 'Bike',
+        })
+        .populate({
+          path: 'user',
+          model: 'User',
+        });
+
+      return {
+        success: true,
+        orders: recentOrders,
+      };
+    } catch (error: any) {
+      return {
+        success: false,
+        message: error.message || 'An error occurred while retrieving orders.',
       };
     }
   }
