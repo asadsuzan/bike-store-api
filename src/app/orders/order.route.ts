@@ -54,5 +54,15 @@ router.delete(
   auth(UserRoles.customer, UserRoles.admin),
   orderController.deleteOrder,
 );
+/**
+ * delete oder
+ * @endpoint  /api/order/:orderId
+ * @method: GET
+ */
+router.get(
+  '/revenue',
+  auth(UserRoles.customer, UserRoles.admin),
+  orderController.getOrderRevenue,
+);
 
 export default router;

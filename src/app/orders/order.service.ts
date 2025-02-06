@@ -267,6 +267,38 @@ class OrderService {
       };
     }
   }
+  // get revenue
+  async getOderRevenue(userId: string, role: string) {
+    try {
+      const matchCondition =
+        role === 'admin'
+          ? { status: 'Paid' }
+          : { user: userId, status: 'Paid' };
+
+      const revenue = await Order.aggregate([
+        { $match: matchCondition },
+        {
+          $group: {
+            _id: null,
+            totalRevenue: { $sum: '$totalPrice' },
+            totalExpense: { $sum: '$totalPrice' },
+          },
+        },
+      ]);
+
+      return {
+        success: true,
+        revenue: revenue[0]?.totalRevenue || 0,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        message:
+          (error as Error).message ||
+          'An error occurred while retrieving order revenue.',
+      };
+    }
+  }
   /**
    * Delete an order based on user role
    * @param orderId - ID of the order to delete

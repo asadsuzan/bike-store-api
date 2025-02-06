@@ -3,6 +3,8 @@ import express from 'express';
 const router = express.Router();
 // import user controller modules
 import UserController from './user.controller';
+import auth from '../middleware/auth';
+import { UserRoles } from './user.constants';
 
 /**
  * create a new user
@@ -17,4 +19,11 @@ router.post('/register', UserController.registerNewUser);
  * @method: POST
  */
 router.post('/login', UserController.loginUser);
+router.post('/register', UserController.registerNewUser);
+/**
+ *  user count
+ * @endpoint  /api/user/count
+ * @method: GET
+ */
+router.get('/count', auth(UserRoles.admin), UserController.getCustomerCount);
 export default router;

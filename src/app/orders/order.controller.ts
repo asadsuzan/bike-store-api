@@ -156,6 +156,30 @@ class OrderController {
       res.status(500).json(errorResponse(message, error));
     }
   }
+
+  // get order revenue
+  async getOrderRevenue(req: ExtendedRequest, res: Response) {
+    console.log('revenue');
+    try {
+      const result = await orderService.getOderRevenue(
+        req.user?._id,
+        req.user?.role,
+      );
+      if (!result.success) {
+        res.status(400).json(errorResponse(result.message as string, null));
+        return;
+      }
+      res.json(successResponse('Order revenue retrieved successfully', result));
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'An error occurred while retrieving order revenue';
+      res.status(500).json(errorResponse(message, error));
+    }
+  }
 }
 
 export default new OrderController();

@@ -87,6 +87,14 @@ class UserService {
       refreshToken,
     };
   }
+
+  // get the total customer count
+  async getTotalCustomerCount() {
+    const count = await User.countDocuments({ role: 'customer' });
+    return {
+      totalCustomers: count,
+    };
+  }
 }
 
 export default new UserService();

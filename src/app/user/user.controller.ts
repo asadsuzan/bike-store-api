@@ -99,6 +99,23 @@ class UserController {
       res.status(500).json(errorResponse(message, error));
     }
   }
+
+  /**
+   *  user count
+   * @param req - express request object
+   * @param res - express response object
+   */
+
+  async getCustomerCount(req: Request, res: Response): Promise<void> {
+    try {
+      const count = await userService.getTotalCustomerCount();
+      res.json(successResponse('User count retrieved successfully', count));
+    } catch (error) {
+      const message =
+        error instanceof Error ? error.message : 'An error occurred';
+      res.status(500).json(errorResponse(message, error));
+    }
+  }
 }
 
 export default new UserController();
