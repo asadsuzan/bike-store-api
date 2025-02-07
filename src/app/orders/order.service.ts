@@ -442,6 +442,68 @@ class OrderService {
       };
     }
   }
+
+    /**
+   * Update the status of an order
+   * @param orderId - ID of the order to update
+   * @param newStatus - New status to set
+   * @returns - Success or error response
+   */
+    async updateOrderStatus(orderId: string, newStatus: string) {
+      try {
+        // Validate the new status
+        const validStatuses = ['Pending', 'Paid', 'Shipped', 'Completed', 'Cancelled'];
+        if (!validStatuses.includes(newStatus)) {
+          return {
+            success: false,
+            message: 'Invalid status provided.',
+          };
+        }
+  
+        // Fetch the existing order
+        const order = await Order.findById(orderId);
+        if (!order) {
+          return {
+            success: false,
+            message: 'Order not found.',
+          };
+        }
+  
+        const currentStatus = order.status;
+  
+        // Define valid status transitions
+        const statusTransitions: { [key: string]: string[] } = {
+          Pending: ['Cancelled', 'Paid'],
+          Paid: ['Shipped'],
+          Shipped: ['Completed'],
+          Completed: [],
+          Cancelled: [],
+        };
+  
+        // Check if the new status is a valid transition
+        if (!statusTransitions[currentStatus]?.includes(newStatus)) {
+          return {
+            success: false,
+            message: `Cannot transition from ${currentStatus} to ${newStatus}.`,
+          };
+        }
+  
+        // Update the order status
+        order.status = newStatus as 'Pending' | 'Paid' | 'Shipped' | 'Completed' | 'Cancelled';
+        await order.save();
+  
+        return {
+          success: true,
+          message: `Order status updated to ${newStatus}.`,
+          order,
+        };
+      } catch (error: any) {
+        return {
+          success: false,
+          message: error.message || 'An error occurred while updating the order status.',
+        };
+      }
+    }
 }
 
 export default new OrderService();

@@ -228,6 +228,46 @@ class OrderController {
       res.status(500).json(errorResponse(message, error));
     }
   }
+
+   /**
+   * Update the status of an order
+   * @param req - HTTP request
+   * @param res - HTTP response
+   */
+   async updateOrderStatus(req: ExtendedRequest, res: Response): Promise<void> {
+    try {
+      const { orderId } = req.params;
+      const { status } = req.body;
+
+      // Validate request parameters
+      if (!orderId || !status) {
+        res
+          .status(400)
+          .json(errorResponse('Order ID and status are required', null));
+        return;
+      }
+
+      // Call the service to update the order status
+      const result = await orderService.updateOrderStatus(
+        orderId,
+        status,
+  
+      );
+
+      if (!result.success) {
+        res.status(400).json(errorResponse(result.message, null));
+        return;
+      }
+
+      res.json(successResponse('Order status updated successfully', result));
+    } catch (error) {
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'An error occurred while updating the order status';
+      res.status(500).json(errorResponse(message, error));
+    }
+  }
 }
 
 export default new OrderController();

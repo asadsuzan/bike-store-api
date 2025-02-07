@@ -70,5 +70,10 @@ router.get(
   auth(UserRoles.admin, UserRoles.customer),
   orderController.getRecentOrders,
 );
+router.put(
+  '/status/:orderId',
+  auth(UserRoles.admin),
+  orderController.updateOrderStatus,
+);
 
 export default router;
