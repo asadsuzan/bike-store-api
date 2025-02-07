@@ -159,7 +159,7 @@ class OrderController {
 
   // get order revenue
   async getOrderRevenue(req: ExtendedRequest, res: Response) {
-    console.log('revenue');
+    
     try {
       const result = await orderService.getOderRevenue(
         req.user?._id,
@@ -170,9 +170,9 @@ class OrderController {
         return;
       }
       res.json(successResponse('Order revenue retrieved successfully', result));
-      console.log(result);
+   
     } catch (error) {
-      console.log(error);
+      
       const message =
         error instanceof Error
           ? error.message
@@ -195,9 +195,9 @@ class OrderController {
       res.json(
         successResponse('Sells overview retrieved successfully', result),
       );
-      console.log(result);
+
     } catch (error) {
-      console.log(error);
+      
       const message =
         error instanceof Error
           ? error.message
@@ -218,9 +218,9 @@ class OrderController {
         return;
       }
       res.json(successResponse('Recent orders retrieved successfully', result));
-      console.log(result);
+  
     } catch (error) {
-      console.log(error);
+ 
       const message =
         error instanceof Error
           ? error.message

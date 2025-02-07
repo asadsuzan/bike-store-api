@@ -62,7 +62,7 @@ router.get(
 );
 router.get(
   '/sells-overview',
-  auth(UserRoles.admin),
+  auth(UserRoles.admin,UserRoles.customer),
   orderController.getSellsOverview,
 );
 router.get(

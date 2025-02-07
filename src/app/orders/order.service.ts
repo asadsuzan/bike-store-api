@@ -270,10 +270,18 @@ class OrderService {
   // get revenue
   async getOderRevenue(userId: string, role: string) {
     try {
-      const matchCondition =
-        role === 'admin'
-          ? { status: 'Paid' }
-          : { user: userId, status: 'Paid' };
+      // const matchCondition =
+      //   role === 'admin'
+      //     ? { status: 'Paid'}
+      //     : { user: userId, status: 'Paid' };
+      // Define the statuses to match
+    const statusesToMatch = ['Pending', 'Shipped', 'Completed'];
+
+    // Define the match condition based on the user's role
+    const matchCondition =
+      role === 'admin'
+        ? { status: { $in: statusesToMatch } } // Admin can see all orders with the specified statuses
+        : { user: userId, status: { $in: statusesToMatch } }; // Regular users can only see their own orders with the specified statuses
 
       const revenue = await Order.aggregate([
         { $match: matchCondition },
@@ -491,7 +499,7 @@ class OrderService {
         // Update the order status
         order.status = newStatus as 'Pending' | 'Paid' | 'Shipped' | 'Completed' | 'Cancelled';
         await order.save();
-  
+
         return {
           success: true,
           message: `Order status updated to ${newStatus}.`,
