@@ -9,6 +9,10 @@ import { Request, Response } from 'express';
 
 import userService from './user.service';
 import config from '../../config';
+import { JwtPayload } from 'jsonwebtoken';
+interface ExtendedRequest extends Request {
+  user?: JwtPayload; // Make the user property optional
+}
 
 class UserController {
   /**
@@ -113,6 +117,34 @@ class UserController {
     } catch (error) {
       const message =
         error instanceof Error ? error.message : 'An error occurred';
+      res.status(500).json(errorResponse(message, error));
+    }
+  }
+// update profile 
+  async updateUserProfile(req: ExtendedRequest, res: Response): Promise<void> {
+    const userId = req?.user?.id
+    const isAdmin = req.user?.role === 'admin';
+    const updateData = req.body;
+      
+    try {
+      const updatedUser = await userService.updateUserProfile(userId, updateData, isAdmin);
+      res.status(200).json(successResponse('User profile updated successfully', updatedUser));
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
+      res.status(500).json(errorResponse(message, error));
+    }
+  }
+// get profile 
+  async getProfile(req: ExtendedRequest, res: Response): Promise<void> {
+    const userId = req?.user?._id
+
+  
+      
+    try {
+      const profile = await userService.getProfile(userId);
+      res.status(200).json(successResponse('User profile retrieves successfully', profile));
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'An error occurred';
       res.status(500).json(errorResponse(message, error));
     }
   }

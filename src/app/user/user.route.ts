@@ -26,4 +26,8 @@ router.post('/register', UserController.registerNewUser);
  * @method: GET
  */
 router.get('/count', auth(UserRoles.admin), UserController.getCustomerCount);
+// Update user profile by admin or user
+router.put('/profile', auth(UserRoles.customer, UserRoles.admin), UserController.updateUserProfile);
+// Update user profile by admin or user
+router.get('/profile', auth(UserRoles.customer, UserRoles.admin), UserController.getProfile);
 export default router;

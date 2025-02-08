@@ -13,7 +13,7 @@ class UserService {
    * @returns Created user document
    */
 
-  async registerNewUser(userData: TUser) {
+  async   registerNewUser(userData: TUser) {
     const { email, password } = userData;
 
     // check if the email is already in use
@@ -95,6 +95,41 @@ class UserService {
       totalCustomers: count,
     };
   }
+
+    /**
+   * Update user profile by User or Admin
+   * @param userId - User ID
+   * @param updateData - Profile update data
+   * @param isAdmin - Boolean flag to differentiate admin update
+   * @returns Updated user profile
+   */
+    async updateUserProfile(userId: string, updateData: Partial<TUser>, isAdmin: boolean) {
+      const updateFields: Partial<TUser> = { ...updateData };
+  // console.log(userId)
+
+      // Prevent unauthorized users from changing roles
+      if (!isAdmin && updateFields.role) delete updateFields.role;
+  if(updateFields.password) delete updateFields.password
+  if(updateFields.email) delete updateFields.email
+     
+  
+      const updatedUser = await User.findByIdAndUpdate(userId, updateFields, { new: true }).select('-password -role');
+  
+      if (!updatedUser) throw new Error('User not found');
+
+      return updatedUser;
+    }
+    /**
+   get profiles
+   */
+    async getProfile(userId: string) {
+    
+      const profile = await User.findById(userId ).select('-password');
+  
+      if (!profile) throw new Error('User not found');
+  
+      return profile;
+    }
 }
 
 export default new UserService();
