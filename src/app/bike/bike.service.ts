@@ -49,15 +49,25 @@ class BikeService {
     }
 
     // Handle dynamic filters
-    for (const field in filterFields) {
-      if (field === 'price' && typeof filterFields[field] === 'object') {
-        query[field] = filterFields[field];
-      } else if (field === 'category') {
-        query[field] = { $in: filterFields[field] };
-      } else {
-        query[field] = filterFields[field];
-      }
+    // for (const field in filterFields) {
+    //   if (field === 'price' && typeof filterFields[field] === 'object') {
+    //     query[field] = filterFields[field];
+    //   } else if (field === 'category') {
+    //     query[field] = { $in: filterFields[field] };
+    //   } else {
+    //     query[field] = filterFields[field];
+    //   }
+    // }
+      // Handle dynamic filters
+  for (const field in filterFields) {
+    if (field === 'price' && typeof filterFields[field] === 'object') {
+      query[field] = filterFields[field];
+    } else if (field === 'category' && filterFields[field] !== 'All') {
+      query[field] = { $in: filterFields[field] };
+    } else if (field !== 'category') {
+      query[field] = filterFields[field];
     }
+  }
 
     // Fetch paginated bikes
     const bikes = await BikeModel.find(query)

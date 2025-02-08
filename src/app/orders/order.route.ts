@@ -21,7 +21,7 @@ router.post('/', auth(UserRoles.customer), orderController.createOrder);
  */
 router.get(
   '/verify-payment',
-  auth(UserRoles.customer),
+  auth(UserRoles.customer,UserRoles.admin),
   orderController.verifyPayment,
 );
 /**
