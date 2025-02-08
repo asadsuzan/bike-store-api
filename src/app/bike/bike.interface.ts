@@ -13,25 +13,25 @@ inStock (boolean): Indicates if the bike is in stock.
 import { IBikeDocument } from './bike.model';
 
 export enum BikeCategory {
-  Robotic = 'Robotic',
-  Manual = 'Manual',
-  Reflectorless = 'Reflectorless',
-  Construction = 'Construction',
-  Specialized = 'Specialized',
+  'Mountain Bikes' ="Mountain Bikes",
+  "Road Bikes" ="Road Bikes",
+  "Hybrid Bikes"="Hybrid Bikes",
+  "Electric Bikes"=  "Electric Bikes"
 }
 
 // Brand Enum
 export enum BikeBrand {
-  LeicaGeosystems = 'Leica Geosystems',
-  Trimble = 'Trimble',
-  Topcon = 'Topcon',
-  Sokkia = 'Sokkia',
-  Nikon = 'Nikon',
-  Pentax = 'Pentax',
-  SouthSurveying = 'South Surveying & Mapping Technology',
-  Stonex = 'Stonex',
-  Ruide = 'Ruide',
-  HiTarget = 'Hi-Target',
+  "Suzuki Zixer"="Suzuki Zixer",
+  "Giant"="Giant",
+  "Trek"="Trek",
+  "Cannondale"="Cannondale",
+ 
+  "Specialized"="Specialized",
+  "Scott"="Scott",
+  "Yamaha"="Yamaha",
+  "Bianchi"="Bianchi",
+  "Merida"="Merida",
+  "Kawasaki"="Kawasaki"
 }
 // Interface for the Bike model
 export interface IBike {

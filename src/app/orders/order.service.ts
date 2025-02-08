@@ -183,6 +183,9 @@ class OrderService {
         .populate({
           path: 'items.productId', // Proper way to target productId in nested array
           model: 'Bike',
+        })  .populate({
+          path: 'user',
+          model: 'User',
         })
         .exec();
 
