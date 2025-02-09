@@ -7,21 +7,26 @@ import helmet from 'helmet'; // Middleware for security headers
 import bikeRoutes from './app/bike/bike.route';
 import orderRoutes from './app/orders/order.route';
 import userRoutes from './app/user/user.route';
-import config from './config';
+// import config from './config';
 
 // Create the Express app
 const app: Application = express();
-const allowedOrigin = config.allowed_origin || `http://localhost:5173`
-console.log(allowedOrigin)
+// const allowedOrigin = config.allowed_origin || `https://bikebd-client.vercel.app/`
 // Global middlewares
 app.use(express.json()); // Middleware to parse incoming JSON requests
 app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded payloads
+// app.use(
+//   cors({
+//     origin: allowedOrigin,
+//     credentials: true, // Enable credentials for CORS
+//   }),
+// ); // Enable Cross-Origin Resource Sharing
 app.use(
   cors({
-    origin: allowedOrigin,
-    credentials: true, // Enable credentials for CORS
-  }),
-); // Enable Cross-Origin Resource Sharing
+    origin: true, // Allow all origins
+    credentials: true, // Enable credentials if required
+  })
+);
 app.use(helmet()); // Secure app by setting various HTTP headers
 
 // use the bike route
