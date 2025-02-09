@@ -37,7 +37,7 @@ const BikeSchema = new mongoose_1.Schema({
     brand: {
         type: String,
         required: true,
-        trim: true,
+        enum: Object.values(bike_interface_1.BikeBrand),
     },
     price: {
         type: Number,
@@ -61,13 +61,21 @@ const BikeSchema = new mongoose_1.Schema({
     },
     inStock: {
         type: Boolean,
-        required: true,
+        default: false,
+    },
+    image: {
+        type: String,
+        trim: true,
+        default: function () {
+            return `https://placehold.co/600x400?text=${this.name}`;
+        },
     },
     isDeleted: {
         type: Boolean,
         default: false,
+        select: false,
     },
-}, { timestamps: true });
+}, { timestamps: true, versionKey: false });
 // HOOK FOR EXCLUDE DELETED BIKE WHEN FIND
 BikeSchema.pre('find', function (next) {
     this.find({ isDeleted: { $ne: true } });
@@ -75,6 +83,22 @@ BikeSchema.pre('find', function (next) {
 });
 BikeSchema.pre('findOne', function (next) {
     this.find({ isDeleted: { $ne: true } });
+    next();
+});
+// Pre-save hook to update the `inStock` property based on the `quantity`
+BikeSchema.pre('save', function (next) {
+    const bike = this;
+    // Set `inStock` based on the `quantity`
+    bike.inStock = bike.quantity > 0;
+    next();
+});
+// Pre-update hook to update the `inStock` property based on the `quantity`
+BikeSchema.pre('findOneAndUpdate', function (next) {
+    const update = this.getUpdate();
+    if (update.quantity !== undefined) {
+        // Set `inStock` based on the `quantity`
+        update.inStock = update.quantity > 0;
+    }
     next();
 });
 // Create the bike model

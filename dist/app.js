@@ -10,17 +10,25 @@ const helmet_1 = __importDefault(require("helmet")); // Middleware for security 
 // import routes
 const bike_route_1 = __importDefault(require("./app/bike/bike.route"));
 const order_route_1 = __importDefault(require("./app/orders/order.route"));
+const user_route_1 = __importDefault(require("./app/user/user.route"));
+const config_1 = __importDefault(require("./config"));
 // Create the Express app
 const app = (0, express_1.default)();
+const allowedOrigin = config_1.default.allowed_origin || `http://localhost:5173`;
+console.log(allowedOrigin);
 // Global middlewares
 app.use(express_1.default.json()); // Middleware to parse incoming JSON requests
 app.use(express_1.default.urlencoded({ extended: true })); // Middleware to parse URL-encoded payloads
-app.use((0, cors_1.default)()); // Enable Cross-Origin Resource Sharing
+app.use((0, cors_1.default)({
+    origin: allowedOrigin,
+    credentials: true, // Enable credentials for CORS
+})); // Enable Cross-Origin Resource Sharing
 app.use((0, helmet_1.default)()); // Secure app by setting various HTTP headers
 // use the bike route
 app.use('/api', bike_route_1.default);
 // use the order route
-app.use('/api', order_route_1.default);
+app.use('/api/order', order_route_1.default);
+app.use('/api/user', user_route_1.default);
 // Health check endpoint
 app.get('/health', (req, res) => {
     res.status(200).json({ status: 'success', message: 'API is running' });

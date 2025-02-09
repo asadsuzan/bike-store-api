@@ -19,6 +19,7 @@ const config = {
   sp_prefix: process.env.SP_PREFIX,
   sp_return_url: process.env.SP_RETURN_URL,
   sp_db_file: process.env.SP_DB_FILE,
+  allowed_origin:process.env.ALLOWED_ORIGIN
 };
 
 export default config;
