@@ -1,298 +1,123 @@
-# 🚲 Bike Store API - Assignment 2
+# 🚲 Bike Store API (Assignment 2)
 
-This project is a RESTful API built with **Express** and **TypeScript** to manage a bike store. It uses **MongoDB** with Mongoose for data storage and retrieval.
+An Express-based backend built with TypeScript and integrated with MongoDB using Mongoose to manage a Bike Store. It includes secure routes, data validation, and role-based access control. Payment processing is handled through **ShurjoPay**, a reliable payment gateway. The APIs are hosted on **Vercel Deploy** for efficient and scalable deployment.
 
----
+## 📋 Features
 
-## ✨ Features
-
-### CRUD Operations for Bikes:
-
-- ➕ **Create new bikes**
-- 📋 **Get a list of all bikes**
-- 🔍 **Get a specific bike by ID**
-- ✏️ **Update an existing bike**
-- ❌ **Delete a bike**
-
-### Order Management:
-
-- 🛒 **Place orders for bikes**
-- 📦 **Inventory Management**  
-  Updates quantity and stock status
-- 🚨 **Handles insufficient stock scenarios**
-- 💰 **Order Revenue Calculation**  
-  Calculates total revenue from all orders
+- CRUD operations for Bikes
+- Order management with **ShurjoPay** payment verification
+- User authentication and profile management
+- Role-based access (Admin and Customer)
+- Comprehensive validation for queries and request bodies
+- Security headers using Helmet
+- CORS setup for client communication
 
 ---
 
-## 🚀 Getting Started
+## 🛠️ Scripts
 
-This project requires **Node.js** and **npm** to be installed on your system.
+| Command        | Description                           |
+|----------------|----------------------------------------|
+| `npm run dev`  | Starts the development server         |
+| `npm run start`| Runs the production build             |
+| `npm run build`| Builds the project for production     |
+| `npm run lint` | Lints the codebase                     |
+| `npm run lint:fix` | Fixes lint issues                 |
+| `npm run format` | Formats the codebase with Prettier  |
 
-1. Clone this repository:
+---
 
-   ```bash
-   git clone https://github.com/asadsuzan/bike-store-api.git
-   ```
+## 🏗️ API Endpoints
 
-2. Navigate to the project directory:
+### 🚴‍♂️ Bike Routes
 
-   ```bash
-   cd bike-store-api-assignment-2
-   ```
+| Method | Endpoint               | Description                   | Access |
+|--------|-------------------------|-------------------------------|--------|
+| POST   | `/api/products`         | Create a new bike            | Admin  |
+| GET    | `/api/products`         | Get all bikes                | Public |
+| GET    | `/api/products/:id`     | Get a specific bike          | Public |
+| PUT    | `/api/products/:id`     | Update a bike                | Admin  |
+| DELETE | `/api/products/:id`     | Delete a bike                | Admin  |
 
-3. Install dependencies:
+---
 
-   ```bash
-   npm install
+### 📦 Order Routes
 
-   ```
+| Method | Endpoint               | Description                   | Access    |
+|--------|-------------------------|-------------------------------|-----------|
+| POST   | `/api/order/`           | Create a new order            | Customer  |
+| GET    | `/api/order/verify-payment` | Verify ShurjoPay payment | Customer/Admin |
+| GET    | `/api/order/orders`     | Get all orders                | Customer/Admin |
+| DELETE | `/api/order/:orderId`   | Delete an order               | Customer/Admin |
 
-4. Create a `.env` file in the root directory and configure the following variables:
+---
 
-   ```json
-   PORT=5000
-   DB_URI=<Your MongoDB Connection URI>
+### 👤 User Routes
 
-   ```
+| Method | Endpoint                | Description                  | Access        |
+|--------|--------------------------|------------------------------|---------------|
+| POST   | `/api/user/register`     | Register a new user         | Public        |
+| POST   | `/api/user/login`        | Login a user                | Public        |
+| GET    | `/api/user/count`        | Get customer count          | Admin         |
+| GET    | `/api/user/profile`      | Get user profile            | Customer/Admin |
+| PUT    | `/api/user/profile`      | Update user profile         | Customer/Admin |
 
-### ▶️ Running the API
+---
 
-Start the development server:
+## 🔐 Security
+
+- **CORS:** Configured for cross-origin requests
+- **JWT Authentication:** Secure routes using JSON Web Tokens
+- **Helmet:** Security headers to protect against common vulnerabilities
+
+---
+
+## 🛠️ Installation
+
+```bash
+git clone https://github.com/asadsuzan/bike-store-api.git
+cd bike-store-api
+npm install
+```
+
+### Running the Application
 
 ```bash
 npm run dev
 ```
 
-This will start the server on port 5000 by default.
+To run the application locally, you need to configure environment variables. Below is a sample `.env` file:
 
-Check the server status at:
-http://localhost:5000/health
-
-### 🌐 Deployment
-
-The Bike Store API is deployed and live on Vercel, making it accessible for testing and integration.
-
-**Base URL:**  
-🌍 [https://bike-store-api-assingment02.vercel.app](https://bike-store-api-assingment02.vercel.app)
-
-#### 🔎 Live API Endpoints
-
-**Health Check**
-
-- **Endpoint:** `/health`
-- **Method:** `GET`
-
-**Example Request:**
-
-```bash
-curl https://bike-store-api-assingment02.vercel.app/health
 ```
-
-Response:
-
-```javascript
-{
-    "message": "Server is up and running!",
-    "success": true
-}
+PORT= 
+DB_URI="" 
+JWT_SECRET=
+JWT_ACCESS_EXPIRE=
+NODE_ENV=production
+SP_ENDPOINT=https://sandbox.shurjopayment.com
+SP_USERNAME=sp_sandbox
+SP_PREFIX=SP
+SP_RETURN_URL=http://localhost:5173/order/verify-order
+DB_FILE=./shurjopay-tx.db
+ALLOWED_ORIGIN=https:http://localhost:5173
 ```
-
-### 📚 API Documentation
-
-The API uses standard HTTP methods (`GET`, `POST`, `PUT`, `DELETE`) for CRUD operations. Below is the detailed documentation of the endpoints.
+Ensure you replace the empty `DB_URI` value with your MongoDB connection string.
 
 ---
 
-## 🚴 Inventory
+## 🔗 Frontend Repository
 
-### ➕ Create a Bike
+[View on GitHub](https://github.com/asadsuzan/bike-store-api)
 
-- **Endpoint**: `/api/products`
-- **Method**: `POST`
+## 🔗 Live Link
+[https://bikebd-client.vercel.app/ ](https://bikebd-client.vercel.app/)
 
-**Request Body:**
 
-```json
-{
-  "name": "Xtreme Mountain Bike",
-  "brand": "Giant",
-  "price": 1200,
-  "category": "Mountain",
-  "description": "A high-performance bike built for tough terrains.",
-  "quantity": 50,
-  "inStock": true
-}
-```
+## 🤝 Contributions
 
-**Response:**
+Contributions are welcome! Feel free to open issues or submit pull requests for improvements.
 
-```json
-{
-  "message": "Bike created successfully",
-  "success": true,
-  "data": {
-    "name": "Xtreme Mountain Bike",
-    "brand": "Giant",
-    "price": 1200,
-    "category": "Mountain",
-    "description": "A high-performance bike built for tough terrains.",
-    "quantity": 50,
-    "inStock": true
-  }
-}
-```
+## 🧑 Author
 
-### 📋 Get All Bikes
+Developed by **MD Asaduzzaman Suzan**
 
-- **Endpoint:** `/api/products`
-- **Method:** `GET`
-
-**Response:**
-
-```json
-{
-  "message": "Bikes retrieved successfully",
-  "success": true,
-  "data": [
-    {
-      "name": "Xtreme Mountain Bike",
-      "brand": "Giant",
-      "price": 1200,
-      "category": "Mountain",
-      "description": "A high-performance bike built for tough terrains.",
-      "quantity": 50,
-      "inStock": true
-    }
-  ]
-}
-```
-
-### 🔍 Get a Specific Bike
-
-- **Endpoint:** `/api/products/:productId`
-- **Method:** `GET`
-- **Path Param:** productId (string) - ID of the bike
-
-**Response:**
-
-```json
-{
-  "message": "Bike retrieved successfully",
-  "success": true,
-  "data": {
-    "name": "Xtreme Mountain Bike",
-    "brand": "Giant",
-    "price": 1200,
-    "category": "Mountain",
-    "description": "A high-performance bike built for tough terrains.",
-    "quantity": 50,
-    "inStock": true
-  }
-}
-```
-
-### ✏️ Update a Bike
-
-- **Endpoint:** `/api/products/:productId`
-- **Method:** `PUT`
-- **Path Param:** productId (string) - ID of the bike
-
-**Request Body:**
-
-```json
-{
-  "name": "Performance Road Bike",
-  "brand": "Cervelo"
-}
-```
-
-**Response:**
-
-```json
-{
-  "message": "Bike updated successfully",
-  "success": true,
-  "data": {
-    "name": "Performance Road Bike",
-    "brand": "Cervelo",
-    "price": 1500,
-    "category": "Road",
-    "description": "Built for speed on paved roads."
-  }
-}
-```
-
-### ❌ Delete a Bike
-
-- **Endpoint:** `/api/products/:productId`
-- **Method:** `DELETE`
-- **Path Param:** productId (string) - ID of the bike
-
-**Response:**
-
-```json
-{
-  "message": "Bike deleted successfully",
-  "success": true
-}
-```
-
-## 🛒 Orders
-
-### ➕ Place an Order
-
-- **Endpoint**: `/api/orders`
-- **Method**: `POST`
-
-**Request Body:**
-
-```json
-{
-  "email": "customer@example.com",
-  "product": "674346a891ea4f89e9cf5230",
-  "quantity": 2,
-  "totalPrice": 5000
-}
-```
-
-**Response:**
-
-```json
-{
-  "message": "Order created successfully",
-  "success": true,
-  "data": {
-    "email": "customer@example.com",
-    "product": "674346a891ea4f89e9cf5230",
-    "quantity": 2,
-    "totalPrice": 5000
-  }
-}
-```
-
-### 💰 Calculate Revenue
-
-- **Endpoint:** `/api/orders/revenue`
-- **Method:** `GET`
-
-**Response:**
-
-```json
-{
-  "message": "Revenue calculated successfully",
-  "success": true,
-  "data": {
-    "totalRevenue": 5000
-  }
-}
-```
-
-⚠️ Error Handling
-The API uses standard HTTP status codes to indicate success or failure. In case of errors, the response includes an error message and details about the issue.
-
-🛠️ Development
-
-- Fork the repository and clone it locally.
-- Follow the steps under Getting Started.
-- Open a pull request for feature updates or bug fixes.
